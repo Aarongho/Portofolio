@@ -285,18 +285,15 @@ html, body {
   z-index: -1;
 }
 
-body {
-  opacity: 1;
-  transform: scale(1);
+.page3-animate {
+  opacity: 0;
+  transform: translateY(40px);
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
-body.preload {
-  opacity: 0;
-  transform: scale(0.9); /* mulai kecil, lalu membesar (zoom out) */
-}
-body.fade-out {
-  opacity: 0;
-  transform: scale(1.2); /* zoom in saat keluar */
+
+.page3-animate.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 
