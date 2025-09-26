@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page 1 - Aaron Winston Gho</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style-global.css" />
+  <link rel="stylesheet" href="style-page1.css" />
+</head>
+<body>
+  
+  <!-- Global Header -->
+  <div class="corner-clock" id="clock"></div>
+  <div class="global-header">
+    <button id="mute-btn" class="header-btn">🔊</button>
+    <div class="toggle-container">
+      <input type="checkbox" id="theme-toggle">
+      <label for="theme-toggle" class="toggle-slider">
+        <span class="label-text">Light Mode</span>
+        <div class="knob"><span class="icon">☀️</span></div>
+      </label>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-container">
+    <div class="avatar-container page1-animate">
+      <img src="image/gho.png" alt="Aaron (anime cyberpunk)" class="avatar page1-animate">
+    </div>
+    <h1 class="neon-text page1-animate">Hello 👋, I Am <span>Aaron Winston Gho</span></h1>
+    <p class="subtitle page1-animate">Wanna Find Out More About Me?</p>
+    <a href="page2.html" class="neon-button page1-animate">Click Here to Find Out</a>
+  </div>
+  <canvas id="sparkle-canvas"></canvas>
+
+
+  <!-- Iframe musik global -->
+  <iframe src="music.html" allow="autoplay" style="display:none"></iframe>
+  <script src="script-global.js"></script>
+  <script src="script-page1.js"></script>
+</body>
+</html>

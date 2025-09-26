@@ -1,0 +1,152 @@
+:root {
+  --bg-light: #f0f0f5;
+  --bg-dark: #000000;
+  --text-light: #1a1a1a;
+  --text-dark: #f5f5ff;
+  --neon1: #00ffff;
+  --neon2: #ff00ff;
+}
+
+/* Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Orbitron', sans-serif;
+  background: var(--bg-light);
+  color: var(--text-light);
+  text-align: center;
+  padding: 20px;
+
+  /* Smooth transition (lama kayak Page2) */
+  transition: background-color 1.6s ease, color 0.8s ease;
+}
+
+body.dark-mode {
+  background: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+/* === MAIN CONTENT === */
+.main-container { margin-top: 60px; }
+
+.avatar-container { margin-bottom: 20px; }
+
+.avatar {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid var(--neon1);
+  box-shadow: 0 0 15px var(--neon1), 0 0 35px var(--neon2);
+  transition: all 0.8s ease;
+}
+body.dark-mode .avatar {
+  border: 4px solid var(--neon2);
+  box-shadow: 0 0 20px var(--neon2), 0 0 40px var(--neon1);
+}
+
+/* Neon Text */
+.neon-text {
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  margin-bottom: 10px;
+  text-shadow: 0 0 8px var(--neon1), 0 0 20px var(--neon2);
+  transition: color 0.8s ease, text-shadow 0.8s ease;
+}
+.neon-text span {
+  font-weight: bold;
+  color: #fff; /* default Light Mode */
+  text-shadow: 0 0 10px #000, 0 0 25px #000, 0 0 40px #000;
+  transition: color 1.2s ease, text-shadow 1.2s ease;
+}
+body.dark-mode .neon-text span {
+  color: #000; /* Dark Mode */
+  text-shadow: 0 0 10px #fff, 0 0 25px #fff, 0 0 40px #fff;
+}
+
+/* Subtitle */
+.subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  margin-top: -10px;
+  opacity: 0.85;
+  transition: opacity 0.8s ease;
+}
+
+/* Button */
+.neon-button {
+  display: inline-block;
+  padding: 16px 50px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(90deg, var(--neon1), var(--neon2));
+  border-radius: 40px;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  box-shadow: 0 0 12px var(--neon1), 0 0 25px var(--neon2);
+}
+.neon-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 18px var(--neon1), 0 0 35px var(--neon2);
+}
+
+/* Page1 Fade Out */
+.fade-out {
+  opacity: 0;
+  transform: scale(0.98);
+  transition: all 1.6s ease;
+}
+/* Sparkle Canvas */
+#sparkle-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* behind everything */
+  background: transparent;
+}
+
+
+/* === CORNER CLOCK DIGITAL === */
+.corner-clock {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  padding: 12px 18px;
+  font-size: 2rem;
+  font-family: 'Orbitron', monospace;
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid #0ff;
+  border-radius: 8px;
+  letter-spacing: 3px;
+  z-index: 1000;
+  color: #0ff;
+  text-shadow: 0 0 8px #0ff, 0 0 18px #0ff, 0 0 28px #0ff;
+  box-shadow: 0 0 12px #0ff, inset 0 0 6px rgba(0,255,255,0.5);
+}
+body.dark-mode .corner-clock {
+  background: rgba(0, 0, 0, 0.8);
+  border-color: #0ff;
+  color: #0ff;
+}
+body:not(.dark-mode) .corner-clock {
+  background: rgba(240, 240, 245, 0.9);
+  border-color: #333;
+  color: #000;
+  text-shadow: none;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .avatar { width: 160px; height: 160px; }
+  .neon-text { font-size: clamp(1.5rem, 5vw, 3rem); }
+  .neon-button { padding: 14px 35px; font-size: 1rem; }
+}

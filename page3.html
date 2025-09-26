@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Page 3 - Profile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style-global.css">
+  <link rel="stylesheet" href="style-navbar.css">
+  <link rel="stylesheet" href="style-page3.css">
+</head>
+<body class="preload">
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-center">
+            <a href="page1.html" class="home-icon">🏠</a>
+            <a href="page3.html">About Me</a>
+            <a href="#">Portfolio</a>
+            <a href="#">Certificate</a>
+            <a href="#">Contact</a>
+            <a href="#">Data Challenge</a>
+        </div>
+
+        <div class="global-header">
+            <button id="mute-btn" class="header-btn">🔊</button>
+            <div class="toggle-container">
+              <input type="checkbox" id="theme-toggle">
+              <label for="theme-toggle" class="toggle-slider">
+                  <span class="label-text">Light Mode</span>
+                  <div class="knob"><span class="icon">☀️</span></div>
+              </label>
+            </div>
+        </div>
+    </nav>
+
+    <hr class="navbar-divider"/>
+
+
+   <!-- Profile -->
+    <section class="profile-container">
+        <div class="profile-circle">
+            <img src="image/aaron.jpeg" id="profile-normal" alt="Normal Profile">
+            <img src="image/gho.png" id="profile-cyber" alt="Cyber Profile" class="hidden">
+        </div>
+
+        <!-- Balon Pikiran dikeluarin -->
+        <div class="thought-bubble" id="thought-bubble">
+            <span id="click-text">Click Me</span>
+        </div>
+    </section>
+
+
+
+
+
+    <!-- ABOUT -->
+    <section class="about">
+      <h1>Aaron Winston Gho</h1>
+      <p>
+        I’m an undergraduate data science student passionate about machine learning and deep learning,
+        with experience in forecasting, classification, image recognition, and image generation. I enjoy
+        working with both structured and unstructured data, building dashboards, web applications, and
+        interactive visualizations that make insights easy to understand. Outside of coding, I’m an energetic
+        communicator who loves public speaking and hosting events as an MC — skills that help me engage
+        with people and keep the energy alive in any team.
+      </p>
+      <p>
+        One of my key projects involved building a deep learning forecasting model using LSTM. Even though
+        the tuned model performed better than other options, the MAE and MSE values were still relatively
+        high compared to the target range. This taught me that accuracy isn’t just about model tuning, but
+        also about understanding the data itself — handling noise, engineering informative features, and
+        exploring alternative architectures. It was a valuable lesson in combining technical rigor with clear
+        communication to turn complex results into meaningful insights.
+      </p>
+      <button class="cv-btn">Download CV</button>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="experience">
+      <h2 class="exp-title">My Experience</h2>
+      <div class="timeline">
+
+        <!-- 1 -->
+        <div class="exp-item">
+          <span class="year">2025 – Now</span>
+          <h3>PIC of Event Organizer – Data Science Club</h3>
+          <p>
+            Served as the Person in Charge (PIC) of event organizing for the Data Science Club, successfully leading and coordinating three major events:  
+            <br> 1. DSC WDB (Waktu DSC Berbuka): fostering connection and inclusivity during Ramadan.  
+            <br> 2. Smash N Fest: encouraged teamwork, sportsmanship, and bonding.  
+            <br> 3. DSC Kind: led a social outreach program at an orphanage.  
+          </p>
+          <p><b>Strengthened my event planning, leadership, teamwork, and communication skills.</b></p>
+        </div>
+
+        <!-- 2 -->
+        <div class="exp-item">
+          <span class="year">2025</span>
+          <h3>Deployment for Hotel Booking Cancellation Prediction – Model Deployment Project</h3>
+          <p>
+            Developed and deployed a machine learning model to predict the probability of hotel booking cancellations. 
+            The solution was built using FastAPI for the backend API and integrated with a Streamlit web app for user interaction. 
+            Users can input booking details such as lead time, guest type, room type, price, and special requests to receive real-time predictions along with probability scores and feature contribution analysis (SHAP values).  
+          </p>
+          <p><b>Strengthened my skills in end-to-end ML pipelines, model deployment, and building interactive data applications.</b></p>
+        </div>
+
+        <!-- 3 -->
+        <div class="exp-item">
+          <span class="year">2025</span>
+          <h3>Ships Detection from Aerial Images Using YOLO – Deep Learning Project</h3>
+          <p>
+            Designed and trained a deep learning model to detect ships from aerial imagery, leveraging the YOLOv8 architecture for real-time object detection. 
+            The workflow combined exploratory data analysis of bounding boxes, preprocessing and augmentation of images to 1024×1024 resolution, and dataset conversion for YOLO training. 
+            Through iterative experiments and parameter tuning, the model steadily improved across epochs, reaching 0.75 precision and 0.52 mAP50.  
+          </p>
+          <p><b>Sharpened my expertise in deep learning pipelines, computer vision, and model optimization.</b></p>
+        </div>
+
+        <!-- 4 -->
+        <div class="exp-item">
+          <span class="year">2025</span>
+          <h3>Classifying for Weight Status Based on Lifestyle Data – Machine Learning Project</h3>
+          <p>
+            In this project, I developed machine learning models to classify seven nutritional status categories using lifestyle and demographic data from Kaggle. 
+            The process included data cleaning (median imputation for missing values, duplicate removal, outlier detection), feature preparation across 17 variables, and the implementation of both Neural Network and Random Forest classifiers. 
+            The Neural Network achieved an accuracy and F1-score of 0.89, while the Random Forest slightly outperformed as a baseline.  
+          </p>
+          <p><b>Improved skills in data cleaning, feature preparation, neural networks, and predictive modeling.</b></p>
+        </div>
+
+        <!-- 5 -->
+        <div class="exp-item">
+          <span class="year">2024</span>
+          <h3>Quality of Education in Indonesia that happen in 2022 — Data Analysis Project</h3>
+          <p>
+            Conducted a comprehensive data analysis project on the Quality of Education in Indonesia (2022) using datasets from BPS and Kemendikbud Ristek. 
+            The workflow included data cleaning (handling missing values, duplicates, and outliers), data transformation, and developing an interactive Shiny dashboard with multiple visualizations.  
+            Key findings revealed significant disparities in teacher and library distribution across provinces (with West Java leading and North Kalimantan lagging), a steady increase in school participation rates from 2002 to 2022, and a strong negative correlation between poverty and educational attainment (p &lt; 0.001).  
+          </p>
+          <p><b>Sharpened my skills in R programming, statistical analysis, and data visualization.</b></p>
+        </div>
+
+        <!-- 6 -->
+        <div class="exp-item">
+          <span class="year">2024</span>
+          <h3>Moderator DSC Cascade — Binus University</h3>
+          <p>
+            Served as the event moderator for DSC Cascade, bringing an energetic and fiery spirit to the stage while engaging both speakers and participants. 
+            I facilitated discussions with clarity and confidence, while leveraging strong improvisational skills to adapt quickly to unexpected situations.  
+          </p>
+          <p><b>Sharpened my public speaking, audience engagement, and adaptability.</b></p>
+        </div>
+
+        <!-- 7 -->
+        <div class="exp-item">
+          <span class="year">2021 – 2022</span>
+          <h3>Vice Secretary OSIS — SMAK PENABUR Kota Tangerang</h3>
+          <p>
+            As Vice Secretary, I was responsible for coordinating organizational administration, managing documentation, and ensuring smooth communication between divisions. 
+            I collaborated with cross-department teams to plan and execute school-wide events, while maintaining structured records and reports for accountability.  
+          </p>
+          <p><b>Honed my leadership, time management, organizational skills, and effective communication.</b></p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="skills-section">
+    <h2>Skill Tree 🌳</h2>
+
+    <!-- Programming Languages -->
+    <div class="skill-box">
+      <h3>🚀 Programming Languages</h3>
+      <div class="skill-chips">
+        <div class="skill-chip">Python 🐍</div>
+        <div class="skill-chip">SQL 🗄️</div>
+        <div class="skill-chip">R 📊</div>
+        <div class="skill-chip">C ⚙️</div>
+        <div class="skill-chip">C++ 🧩</div>
+        <div class="skill-chip">JavaScript 🌐</div>
+        <div class="skill-chip">Scala 🔥</div>
+      </div>
+    </div>
+
+    <!-- Machine Learning & Deep Learning -->
+    <div class="skill-box">
+      <h3>🤖 Machine Learning & Deep Learning</h3>
+      <div class="skill-chips">
+        <div class="skill-chip">Scikit-learn 🤖</div>
+        <div class="skill-chip">TensorFlow 🧠</div>
+        <div class="skill-chip">PyTorch 🔥</div>
+        <div class="skill-chip">Keras ⚡</div>
+        <div class="skill-chip">Joblib 📦</div>
+        <div class="skill-chip">XGBoost 🚀</div>
+        <div class="skill-chip">Random Forest 🌳</div>
+        <div class="skill-chip">Scipy 📐</div>
+      </div>
+    </div>
+
+    <!-- Data Analysis & Visualization -->
+    <div class="skill-box">
+      <h3>📊 Data Analysis & Visualization</h3>
+      <div class="skill-chips">
+        <div class="skill-chip">Matplotlib 📈</div>
+        <div class="skill-chip">Plotly 📊</div>
+        <div class="skill-chip">Pandas 🐼</div>
+        <div class="skill-chip">Numpy 🔢</div>
+        <div class="skill-chip">Seaborn 🌊</div>
+        <div class="skill-chip">Tableau 📊</div>
+        <div class="skill-chip">Excel 📑</div>
+        <div class="skill-chip">Geoplotlib 🌍</div>
+      </div>
+    </div>
+
+    <!-- Web Development & Deployment -->
+    <div class="skill-box">
+      <h3>💻 Web Development & Deployment</h3>
+      <div class="skill-chips">
+        <div class="skill-chip">Streamlit 🚀</div>
+        <div class="skill-chip">FastAPI ⚡</div>
+        <div class="skill-chip">Railway 🚂</div>
+        <div class="skill-chip">HTML 🌐</div>
+        <div class="skill-chip">CSS 🎨</div>
+        <div class="skill-chip">JavaScript 📜</div>
+      </div>
+    </div>
+
+    <!-- Networking & Cloud -->
+    <div class="skill-box">
+      <h3>🌐 Networking & Cloud</h3>
+      <div class="skill-chips">
+        <div class="skill-chip">Cisco 🌍</div>
+        <div class="skill-chip">Eraser 🧹</div>
+      </div>
+    </div>
+
+    <!-- Tools -->
+    <div class="skill-box">
+      <h3>🛠️ Tools</h3>
+      <div class="skill-chips">
+        <div class="skill-chip">Google Colab ☁️</div>
+        <div class="skill-chip">Visual Studio Code 💻</div>
+        <div class="skill-chip">MySQL 🗄️</div>
+        <div class="skill-chip">Figma 🎨</div>
+        <div class="skill-chip">Anaconda 🐍</div>
+        <div class="skill-chip">Docker 🐳</div>
+        <div class="skill-chip">R Studio 📊</div>
+        <div class="skill-chip">Jupyter Notebook 📓</div>
+        <div class="skill-chip">Cisco Packet Tracer 🌐</div>
+        <div class="skill-chip">Excalidraw ✏️</div>
+      </div>
+    </div>
+
+    <!-- Softskills -->
+    <div class="skill-box">
+      <h3>🌟 Softskills</h3>
+      <div class="skill-chips">
+        <div class="skill-chip">Energetic ⚡</div>
+        <div class="skill-chip">Public Speaking 🎤</div>
+        <div class="skill-chip">Adaptive 🔄</div>
+        <div class="skill-chip">Critical Thinking 🧠</div>
+        <div class="skill-chip">Time Management ⏳</div>
+        <div class="skill-chip">Initiative 🚀</div>
+        <div class="skill-chip">Innovation 💡</div>
+      </div>
+    </div>
+  </section>
+
+    <iframe src="music.html" style="display:none;"></iframe>
+    <canvas id="ocean-canvas"></canvas>
+    <script src="script-global.js"></script>
+    <script src="script-page3.js"></script>
+</body>
+</html>

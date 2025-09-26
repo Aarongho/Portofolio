@@ -1,0 +1,305 @@
+
+/* Description Centered */
+.about {
+  max-width: 900px;
+  margin: 40px auto;
+  text-align: center;
+}
+.about h1 {
+  margin-bottom: 20px;
+  font-size: 70px;
+}
+.about p {
+  margin-bottom: 15px;
+  font-size: 30px;
+}
+
+.profile-container {
+  margin-top: 60px;
+  text-align: center;
+  position: relative; /* penting biar absolute childnya ngikut */
+}
+
+.profile-circle {
+  display: inline-block;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 6px solid cyan;
+  box-shadow: 0 0 25px cyan, 0 0 45px magenta;
+  transition: all 0.6s ease;
+  position: relative;
+  z-index: 1; /* lingkaran */
+}
+
+body.dark-mode .profile-circle {
+  border: 6px solid magenta;
+  box-shadow: 0 0 30px magenta, 0 0 60px cyan;
+}
+
+.profile-circle img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.hidden {
+  display: none;
+}
+
+/* === Balon Pikiran === */
+.thought-bubble {
+  position: absolute;
+  top: 0;       /* pas di atas lingkaran */
+  right: 50%;   /* geser dikit ke kanan */
+  width: 130px;
+  padding: 10px;
+  background: white;
+  border: 2px solid black;
+  border-radius: 25px;
+  text-align: center;
+  font-weight: bold;
+  color: black;
+  z-index: 9999; /* paling depan */
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  background-image: url("image/thinking-cloud.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.thought-bubble.show {
+  opacity: 1;
+}
+
+
+#click-text {
+  font-size: 14px;
+  font-style: italic;
+  color: #000;
+  text-shadow: 0 0 6px cyan, 0 0 12px magenta;
+}
+
+
+
+/* CV Button */
+.cv-btn {
+  padding: 12px 25px;
+  background: red;
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.cv-btn:hover {
+  background: darkred;
+}
+.exp-title {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 40px;
+}
+
+/* Timeline container */
+.timeline {
+  position: relative;
+  margin: 40px auto; /* lebih kecil daripada 60px */
+  max-width: 1000px; /* biar box bisa melebar */
+}
+
+
+/* Vertical line */
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: #111; /* light mode */
+  box-shadow: 0 0 8px #111;
+  transform: translateX(-50%);
+}
+body.dark-mode .timeline::before {
+  background: cyan;
+  box-shadow: 0 0 8px cyan, 0 0 16px #0ff;
+}
+
+/* Kotak pengalaman */
+.exp-item {
+  position: relative;
+  width: 45%;
+  padding: 20px;
+  border-radius: 12px;
+  background: #fff;
+  border: 2px solid #111;
+  box-shadow: 0 0 12px #111;
+  margin: 20px 0;
+  text-align: justify;
+}
+
+body.dark-mode .exp-item {
+  background: rgba(0,0,0,0.8);
+  border: 2px solid #0ff;
+  box-shadow: 0 0 12px #0ff;
+}
+
+/* Zig-zag fix */
+.exp-item:nth-child(odd) {
+  left: 0; /* tempel ke garis */
+}
+.exp-item:nth-child(even) {
+  left: 50%;
+}
+
+/* Tahun pojok kiri atas */
+.exp-item .year {
+  font-weight: bold;
+  font-size: 16px;
+  color: red;
+  text-shadow: 0 0 8px red, 0 0 16px red;
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* Judul */
+.exp-item h3 {
+  text-align: center;
+  font-size: 18px;
+  margin: 5px 0 12px 0;
+  color: #111;
+  text-shadow: 0 0 6px #111;
+}
+body.dark-mode .exp-item h3 {
+  color: cyan;
+  text-shadow: 0 0 6px cyan, 0 0 12px #0ff;
+}
+
+/* Isi paragraf */
+.exp-item p {
+  margin: 0;
+  line-height: 1.5;
+  text-align: justify;
+}
+
+
+
+/* Titik merah zig-zag */
+.exp-item::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  width: 18px;
+  height: 18px;
+  background: red;
+  border-radius: 50%;
+  box-shadow: 0 0 8px red, 0 0 16px red;
+  z-index: 10;
+}
+.exp-item:nth-child(odd)::before {
+  right: -9px; /* titik di kanan kotak kiri */
+}
+.exp-item:nth-child(even)::before {
+  left: -9px; /* titik di kiri kotak kanan */
+}
+
+
+
+/* === SKILL TREE === */
+.skills-section {
+  margin: 80px auto;
+  text-align: center;
+  max-width: 1000px;
+}
+.skills-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+  color: #000;
+}
+body.dark-mode .skills-section h2 {
+  color: #0ff;
+  text-shadow: 0 0 8px #0ff, 0 0 16px #00f;
+}
+
+.skill-box {
+  border: 2px solid #111;
+  border-radius: 12px;
+  padding: 30px;
+  margin: 30px 0;
+  background: #fff;
+  box-shadow: 0 0 12px #111, inset 0 0 6px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+body.dark-mode .skill-box {
+  border: 2px solid #0ff;
+  background: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 12px #0ff, inset 0 0 6px rgba(0,255,255,0.5);
+}
+
+.skill-box h3 {
+  margin-bottom: 30px;
+  font-size: 30px;
+}
+
+.skill-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.skill-chip {
+  padding: 10px 20px;
+  border-radius: 25px;
+  background: #fff;
+  border: 1px solid #111;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.skill-chip.active {
+  background: #aaa;
+}
+body.dark-mode .skill-chip {
+  background: rgba(0,255,255,0.2);
+  border: 1px solid #0ff;
+  color: #fff;
+}
+body.dark-mode .skill-chip.active {
+  background: #ff0033;
+  color: #fff;
+}
+/* ===== FIX HORIZONTAL SCROLL ===== */
+html, body {
+  overflow-x: hidden; /* cegah geser kiri kanan */
+}
+#ocean-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+body {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+body.preload {
+  opacity: 0;
+  transform: scale(0.9); /* mulai kecil, lalu membesar (zoom out) */
+}
+body.fade-out {
+  opacity: 0;
+  transform: scale(1.2); /* zoom in saat keluar */
+}
+
+
+
+
+

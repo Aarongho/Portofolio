@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Background Music</title>
+</head>
+<body>
+  <audio id="bg-music" loop>
+    <source src="music/introducing-me.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const audio = document.getElementById("bg-music");
+
+    // Restore waktu terakhir & status mute
+    const lastTime = localStorage.getItem("music-time");
+    if (lastTime) {
+      audio.currentTime = parseFloat(lastTime);
+    }
+    audio.muted = localStorage.getItem("music-muted") === "true";
+
+    // Kalau sudah pernah start → langsung play
+    if (localStorage.getItem("music-started") === "true") {
+      audio.play().catch(() => console.log("[DEBUG] autoplay blocked"));
+    }
+
+    // Simpan posisi & mute setiap detik
+    setInterval(() => {
+      localStorage.setItem("music-time", audio.currentTime);
+      localStorage.setItem("music-muted", audio.muted);
+    }, 1000);
+
+    // Start musik saat interaksi pertama
+    function startMusic() {
+      if (audio.paused) {
+        audio.play().catch(err => console.log("Autoplay blocked:", err));
+      }
+      localStorage.setItem("music-started", "true");
+      document.removeEventListener("click", startMusic);
+      document.removeEventListener("keydown", startMusic);
+      document.removeEventListener("scroll", startMusic);
+    }
+    document.addEventListener("click", startMusic);
+    document.addEventListener("keydown", startMusic);
+    document.addEventListener("scroll", startMusic);
+  </script>
+</body>
+</html>

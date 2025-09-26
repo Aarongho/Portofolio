@@ -1,0 +1,237 @@
+:root {
+  --bg-light: #f0f0f5;
+  --bg-dark: #000000;
+  --text-light: #1a1a1a;
+  --text-dark: #f5f5ff;
+}
+
+/* Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* Body dengan transisi */
+body {
+  min-height: 100vh;
+  font-family: 'Orbitron', sans-serif;
+  background: var(--bg-light);
+  color: var(--text-light);
+  text-align: center;
+  padding: 20px;
+
+  /* Smooth transisi background & text */
+  transition: background-color 1.6s ease, color 0.8s ease;
+
+  display: block;           /* ubah ke block supaya bisa scroll */
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-bottom: 120px;     /* ruang bawah supaya sosmed ga kepotong */
+}
+
+body.dark-mode {
+  background: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+/* === AVATAR === */
+.avatar-container {
+  text-align: center;
+  margin: 120px 0 25px; /* turun supaya tidak tabrakan header */
+}
+.avatar {
+  width: 240px;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 6px solid cyan;
+  box-shadow: 0 0 25px cyan, 0 0 45px magenta;
+  transition: all 0.6s ease;
+}
+body.dark-mode .avatar {
+  border: 6px solid magenta;
+  box-shadow: 0 0 30px magenta, 0 0 60px cyan;
+}
+
+/* === TITLE + SUBTITLE === */
+.portfolio-title {
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-weight: bold;
+  margin-bottom: 12px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+body.dark-mode .portfolio-title { color: #fff; text-shadow: 0 0 10px #000; }
+body:not(.dark-mode) .portfolio-title { color: #000; text-shadow: 0 0 10px #fff; }
+
+.portfolio-subtitle {
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  margin-bottom: 45px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+body.dark-mode .portfolio-subtitle { color: #fff; text-shadow: none; }
+body:not(.dark-mode) .portfolio-subtitle { color: #000; text-shadow: none; }
+
+.page2-animate.show .portfolio-title,
+.page2-animate.show .portfolio-subtitle {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* === MENU CONTAINER === */
+.menu-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 35px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* === BOX STYLE === */
+.modebox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 35px 55px;
+  border-radius: 20px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid;
+  transition: all 0.3s ease;
+}
+.modebox .icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+  transition: color 0.3s ease;
+}
+
+/* DARK MODE */
+body.dark-mode .modebox { background: #1a1a1a; color: #fff; }
+body.dark-mode .modebox.about       { border-color: #00cccc; }
+body.dark-mode .modebox.portfolio   { border-color: #cc33cc; }
+body.dark-mode .modebox.certificate { border-color: #d4af37; }
+body.dark-mode .modebox.contact     { border-color: #33cc33; }
+body.dark-mode .modebox.games       { border-color: #ff6699; }
+
+/* Hover dark dengan fill terang */
+body.dark-mode .modebox.about:hover       { background: rgba(0,255,255,0.3); }
+body.dark-mode .modebox.portfolio:hover   { background: rgba(255,0,255,0.3); }
+body.dark-mode .modebox.certificate:hover { background: rgba(255,215,0,0.35); }
+body.dark-mode .modebox.contact:hover     { background: rgba(50,205,50,0.35); }
+body.dark-mode .modebox.games:hover       { background: rgba(255,105,180,0.35); }
+
+/* LIGHT MODE */
+body:not(.dark-mode) .modebox { background: #f8f8f8; color: #000; }
+body:not(.dark-mode) .modebox.about       { border-color: #005577; }
+body:not(.dark-mode) .modebox.portfolio   { border-color: #660066; }
+body:not(.dark-mode) .modebox.certificate { border-color: #665500; }
+body:not(.dark-mode) .modebox.contact     { border-color: #004400; }
+body:not(.dark-mode) .modebox.games       { border-color: #660022; }
+
+/* Hover light dengan fill halus */
+body:not(.dark-mode) .modebox.about:hover       { background: rgba(0,85,119,0.12); }
+body:not(.dark-mode) .modebox.portfolio:hover   { background: rgba(102,0,102,0.12); }
+body:not(.dark-mode) .modebox.certificate:hover { background: rgba(102,85,0,0.12); }
+body:not(.dark-mode) .modebox.contact:hover     { background: rgba(0,68,0,0.12); }
+body:not(.dark-mode) .modebox.games:hover       { background: rgba(102,0,34,0.12); }
+
+/* === CORNER CLOCK DIGITAL === */
+.corner-clock {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  padding: 12px 18px;
+  font-size: 2rem;
+  font-family: 'Orbitron', monospace;
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid #0ff;
+  border-radius: 8px;
+  letter-spacing: 3px;
+  z-index: 1000;
+  color: #0ff;
+  text-shadow: 0 0 8px #0ff, 0 0 18px #0ff, 0 0 28px #0ff;
+  box-shadow: 0 0 12px #0ff, inset 0 0 6px rgba(0,255,255,0.5);
+}
+body.dark-mode .corner-clock {
+  background: rgba(0, 0, 0, 0.8);
+  border-color: #0ff;
+  color: #0ff;
+}
+body:not(.dark-mode) .corner-clock {
+  background: rgba(240, 240, 245, 0.9);
+  border-color: #333;
+  color: #000;
+  text-shadow: none;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+/* === SOCIAL ICONS (scrollable, bukan fixed) === */
+.social-container {
+  margin-top: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.social-container img {
+  width: clamp(60px, 9vw, 100px);
+  height: clamp(60px, 9vw, 100px);
+  cursor: pointer;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  display: block;
+}
+
+.social-container img:hover {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 18px var(--neon1, cyan));
+}
+
+/* Sparkle Canvas */
+#sparkle-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: transparent;
+}
+
+/* === RESPONSIVE FIX === */
+@media (max-width: 1024px) {
+  .menu-container {
+    grid-template-columns: 1fr; /* langsung stack ke bawah */
+    gap: 25px;
+  }
+  .modebox {
+    font-size: 1.1rem;
+    padding: 25px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .avatar { width: 180px; height: 180px; }
+  .portfolio-title { font-size: clamp(2rem, 6vw, 3rem); }
+  .portfolio-subtitle { font-size: 1.2rem; }
+  .menu-container { grid-template-columns: 1fr; gap: 25px; }
+  .modebox { font-size: 1.1rem; padding: 25px 40px; }
+}
+
+body {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+body.fade-out {
+  opacity: 0;
+  transform: scale(1.2); /* Zoom in saat keluar */
+}
