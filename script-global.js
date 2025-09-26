@@ -39,11 +39,6 @@ window.addEventListener("DOMContentLoaded", () => {
     }, 300);
   }
 
-  // ==== PRELOAD FIX ==== (cabut lebih cepat di PC)
-  setTimeout(() => {
-    body.classList.remove("preload");
-  }, 50);
-
   // Awalnya tanpa animasi theme
   body.classList.remove("theme-animate");
 
@@ -78,6 +73,39 @@ window.addEventListener("DOMContentLoaded", () => {
       }, i * 150);
     });
   }
+
+  // Page3 animasi (slide up)
+  const page3Els = document.querySelectorAll(".page3-animate");
+  if (page3Els.length > 0) {
+    page3Els.forEach((el, i) => {
+      setTimeout(() => {
+        el.classList.add("show");
+      }, i * 150);
+    });
+  }
+
+  // Hilangkan preload setelah 2 frame → animasi masuk terlihat
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      document.body.classList.remove("preload");
+    });
+  });
+
+  // Tangkap semua link internal
+  document.querySelectorAll("a").forEach(link => {
+    if (link.hostname === window.location.hostname) {
+      link.addEventListener("click", e => {
+        const href = link.getAttribute("href");
+        if (href && !href.startsWith("http")) {
+          e.preventDefault();
+          document.body.classList.add("fade-out");
+          setTimeout(() => {
+            window.location.href = href;
+          }, 800); // sesuai durasi CSS
+        }
+      });
+    }
+  });
 });
 
 /* ====== START MUSIC ON ANY INTERACTION ====== */
@@ -125,39 +153,9 @@ if (toggle) {
   });
 }
 
-
-// Fade-in saat halaman baru dimuat
-document.addEventListener("DOMContentLoaded", () => {
-  // biar preload sempat terlihat sebelum dicabut
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      document.body.classList.remove("preload");
-    });
-  });
-});
-
-  // Tambahin event ke semua link internal
-  document.querySelectorAll("a").forEach(link => {
-    if (link.hostname === window.location.hostname) {
-      link.addEventListener("click", e => {
-        const href = link.getAttribute("href");
-        if (href && !href.startsWith("http")) {
-          e.preventDefault();
-          document.body.classList.add("fade-out");
-          setTimeout(() => {
-            window.location.href = href;
-          }, 800); // harus sama dengan durasi CSS
-        }
-      });
-    }
-  });
-
-
 // Handle back/forward navigation (bfcache restore)
 window.addEventListener("pageshow", (event) => {
   if (event.persisted) {
-    // reload otomatis biar state bersih (musik, animasi dll reset)
     window.location.reload();
   }
 });
-
