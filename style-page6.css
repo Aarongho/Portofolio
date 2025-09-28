@@ -33,6 +33,7 @@ h1 {
   font-size: 36px;
   margin: 0 auto 10px;
   text-align: center;
+  margin-top: 40px;
   text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
   animation: glowTitle 2s infinite alternate;
 }

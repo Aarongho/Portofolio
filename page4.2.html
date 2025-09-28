@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Page 5 - Project Showcase</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style-global.css">
+  <link rel="stylesheet" href="style-navbar.css">
+  <link rel="stylesheet" href="page5.1.css">
+</head>
+
+
+<body>
+    <canvas id="matrix-canvas"></canvas>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="page4.html" class="back-btn-box">← Back</a>
+        </div>
+
+        <div div class="global-header">
+            <button id="mute-btn" class="header-btn">🔊</button>
+            <div class="toggle-container">
+            <input type="checkbox" id="theme-toggle">
+            <label for="theme-toggle" class="toggle-slider">
+                <span class="label-text">Light Mode</span>
+                <div class="knob"><span class="icon">☀️</span></div>
+            </label>
+            </div>
+        </div>
+    </nav>
+
+    <hr class="navbar-divider"/>
+
+
+
+
+  <section class="portfolio">
+    <h1 class="portfolio-title">Project Showcase</h1>
+    <p class="portfolio-subtitle">Highlight of my featured works</p>
+
+    <div class="portfolio-grid">
+
+     <!-- PROJECT CARD -->
+    <div class="project-card">
+
+    <div class="card-header">
+        <h3>🥑📈 Avocado Price Forecasting</h3>
+    </div>
+    <div class="card-meta">
+        <span class="cat-pill">Time Series Forecasting</span>
+        <span class="year-pill">2025</span>
+    </div>
+
+    <p class="card-desc">
+        A time series forecasting project that analyzes avocado price trends and predicts future prices using statistical methods and deep learning models.
+    </p>
+
+    <!-- SLIDER -->
+    <div class="slider">
+        <div class="slides">
+        <img src="img/avocado-trend.png" alt="Trend Analysis">
+        <img src="img/avocado-seasonality.png" alt="Seasonal Decomposition">
+        <img src="img/avocado-forecast.png" alt="Forecasting Results">
+        </div>
+        <button class="prev">❮</button>
+        <button class="next">❯</button>
+    </div>
+
+    <div class="info-boxes">
+        <div class="info-box">
+        <h4>🎯 What I Learned</h4>
+        <ul>
+            <li>Performed seasonal decomposition and stationarity tests</li>
+            <li>Applied RobustScaler to stabilize training</li>
+            <li>Implemented neural network forecasting with hyperparameter tuning</li>
+        </ul>
+        </div>
+        <div class="info-box">
+        <h4>🛠 Tech Stack</h4>
+        <ul>
+            <li>Python, Pandas, NumPy</li>
+            <li>Matplotlib, Seaborn, Statsmodels</li>
+            <li>Scikit-learn</li>
+            <li>TensorFlow / Keras, Keras Tuner</li>
+        </ul>
+        </div>
+    </div>
+
+    <div class="evaluation">
+        <h4>📌 Evaluation / Next Step</h4>
+        <p>
+        The tuned Keras model achieved lower MSE/MAE and higher R² compared to the untuned version, thanks to scaling and hyperparameter optimization. 
+        However, sudden market shifts remain challenging. Future work includes experimenting with LSTM/GRU architectures and hybrid models that combine ARIMA with neural networks.
+        </p>
+    </div>
+
+    <div class="card-cta">
+        <a href="https://github.com/yourusername/portfolio-projects/tree/main/avocado-price-forecasting" class="btn">View on GitHub</a>
+    </div>
+    </div>
+    <!-- END PROJECT CARD -->
+
+    </div>
+  </section>
+  <iframe src="music.html" style="display:none;"></iframe>
+  
+  <script src="script-global.js"></script>
+  <script src="script-navbar.js"></script>
+  <script src="page5.1.js"></script>
+
+
+</body>
+</html>
