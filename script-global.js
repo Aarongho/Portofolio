@@ -31,6 +31,7 @@ function initMuteControl() {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
+  /* === MUSIC INIT === */
   musicFrame = document.querySelector("iframe[src='music.html']");
   if (musicFrame) {
     const check = setInterval(() => {
@@ -39,7 +40,7 @@ window.addEventListener("DOMContentLoaded", () => {
     }, 300);
   }
 
-  // Awalnya tanpa animasi theme
+  /* === THEME SETUP === */
   body.classList.remove("theme-animate");
 
   const theme = localStorage.getItem("theme") || "light";
@@ -59,12 +60,11 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Aktifkan animasi theme lagi
   setTimeout(() => {
     body.classList.add("theme-animate");
   }, 100);
 
-  // Page2 animasi
+  /* === PAGE2 ANIMATION === */
   const page2Els = document.querySelectorAll(".page2-animate");
   if (page2Els.length > 0) {
     page2Els.forEach((el, i) => {
@@ -74,24 +74,25 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Page3 animasi (slide up)
   const page3Els = document.querySelectorAll(".page3-animate");
   if (page3Els.length > 0) {
     page3Els.forEach((el, i) => {
       setTimeout(() => {
         el.classList.add("show");
-      }, i * 150);
+      }, i * 300); // jeda lebih panjang → santai & cinematic
     });
-  }
+}
 
-  // Hilangkan preload setelah 2 frame → animasi masuk terlihat
+
+
+
+  /* === PAGE TRANSITIONS === */
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
-      document.body.classList.remove("preload");
+      document.body.classList.remove("preload"); // trigger animasi masuk
     });
   });
 
-  // Tangkap semua link internal
   document.querySelectorAll("a").forEach(link => {
     if (link.hostname === window.location.hostname) {
       link.addEventListener("click", e => {
@@ -101,7 +102,7 @@ window.addEventListener("DOMContentLoaded", () => {
           document.body.classList.add("fade-out");
           setTimeout(() => {
             window.location.href = href;
-          }, 800); // sesuai durasi CSS
+          }, 800);
         }
       });
     }
@@ -153,9 +154,11 @@ if (toggle) {
   });
 }
 
-// Handle back/forward navigation (bfcache restore)
+/* ====== HANDLE BFCACHE ====== */
 window.addEventListener("pageshow", (event) => {
   if (event.persisted) {
     window.location.reload();
   }
 });
+
+

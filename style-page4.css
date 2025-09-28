@@ -1,0 +1,299 @@
+/* ===========================
+   page4: style-page4.css
+   =========================== */
+
+
+
+/* Portfolio container */
+.portfolio {
+  max-width: 1400px;
+  margin: 60px auto;
+  padding: 20px;
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+  min-height: 100vh;
+}
+
+
+/* Title */
+.portfolio-title {
+  font-size: 48px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #000;
+  text-shadow: 0 0 6px #111;
+}
+body.dark-mode .portfolio-title {
+  color: #00f8e0;
+  text-shadow: 0 0 20px rgba(0,255,255,0.18), 0 0 6px rgba(0,200,255,0.6);
+}
+.portfolio-subtitle {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 40px;
+}
+body.dark-mode .portfolio-subtitle {
+  font-size: 18px;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 40px;
+}
+
+/* FILTER BUTTONS */
+.portfolio-filters {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:15px;
+  margin-bottom:36px;
+  font-family: 'Orbitron', sans-serif; /* ⬅️ sesuai permintaan */
+}
+.filter-btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  background: transparent;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #000;
+  border: 2px solid #111;
+  font-family: 'Orbitron', sans-serif; /* ⬅️ fix font di filter button */
+}
+.filter-btn:hover { background: #aaa; }
+.filter-btn.active { background: cyan; border-color: cyan; color: #000; }
+
+body.dark-mode .filter-btn {
+  border: 2px solid rgba(0,255,220,0.16);
+  color: #aaf7e8;
+  font-weight:700;
+  box-shadow: 0 2px 0 rgba(0,0,0,0.35);
+}
+body.dark-mode .filter-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,255,220,0.06);
+}
+body.dark-mode .filter-btn.active {
+  background: #00f8e0;
+  color: #012;
+  border-color: #00f8e0;
+  box-shadow: 0 6px 26px rgba(0,255,220,0.12);
+}
+
+/* GRID */
+.portfolio-grid {
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(3, minmax(260px, 1fr));
+  align-items: start;
+  margin: 0 20px;
+}
+
+/* PROJECT CARD */
+.project-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  min-height: 300px;
+  transition: transform .28s cubic-bezier(.2,.9,.3,1), box-shadow .28s ease, border-color .28s ease;
+}
+
+/* Light mode card */
+.project-card {
+  background: #fff;
+  border: 2px solid #111;
+  box-shadow: 0 0 12px rgba(0,0,0,0.3);
+}
+.project-card:hover {
+  border-color: cyan;
+  box-shadow: 0 0 25px rgba(0,255,255,0.8), 0 0 50px rgba(0,255,255,0.6);
+}
+
+/* Dark mode card */
+body.dark-mode .project-card {
+  background: rgba(10,10,10,0.9);
+  border: 2px solid rgba(0,255,220,0.12);
+  box-shadow: 0 0 12px #0ff;
+}
+body.dark-mode .project-card:hover {
+  border-color: rgba(0,255,220,0.95);
+  box-shadow: 0 10px 40px rgba(0,255,220,0.06), 0 0 40px rgba(0,200,255,0.06);
+}
+
+/* ANGLE WIND SWEEP (hover effect, berlaku untuk light & dark) */
+.project-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: -120%;
+  width: 120%; height: 100%;
+  background: linear-gradient(120deg, rgba(0,255,255,0.15), rgba(0,0,255,0.2));
+  transition: all 0.6s ease;
+}
+.project-card:hover::before { left: 0; }
+
+/* subtle inner neon stroke khusus dark mode */
+body.dark-mode .project-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  pointer-events: none;
+  box-shadow: 0 0 18px rgba(0,255,220,0.04) inset;
+}
+
+/* header/title */
+.card-header h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  line-height: 1.05;
+  color: #000;
+}
+body.dark-mode .card-header h3 {
+  color: #8ef4e1;
+  text-shadow: 0 0 6px rgba(0,200,255,0.07);
+}
+
+/* meta */
+.card-meta {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  margin-bottom:10px;
+}
+.cat-pill{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:10px;
+  background: rgba(255,100,120,0.95);
+  color: #fff;
+  font-weight:700;
+  font-size:12px;
+}
+.year-pill{
+  min-width:44px;
+  height:28px;
+  border-radius:16px;
+  background: rgba(0,0,0,0.6);
+  color:#fff;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  font-size:12px;
+  border: 2px solid rgba(0,255,220,0.12);
+}
+
+/* emoji row */
+.emoji-row{ display:flex; gap:10px; margin:12px 0 14px; }
+.emoji-chip{
+  display:inline-flex;
+  width:44px; height:44px;
+  align-items:center; justify-content:center;
+  border-radius:8px;
+  background: rgba(255,255,255,0.03);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.5);
+  transition: transform .28s cubic-bezier(.2,.9,.3,1), box-shadow .28s;
+  font-size:22px;
+}
+.emoji-chip:hover{
+  transform: translateY(-6px) rotate(-6deg) scale(1.08);
+  box-shadow: 0 18px 40px rgba(192, 237, 231, 0.06);
+}
+
+/* description */
+.card-desc {
+  font-size:14px;
+  line-height: 1.45;
+  flex-grow: 1;
+  margin-bottom: 18px;
+  color: #333;
+}
+body.dark-mode .card-desc { color: rgba(255, 255, 255, 0.75); }
+
+/* CTA */
+.card-cta{ display:flex; gap:10px; align-items:center; }
+.btn {
+  display:inline-block;
+  background: #46b8ff;
+  color: #022;
+  padding:8px 12px;
+  border-radius:8px;
+  font-weight:700;
+  cursor:pointer;
+  text-decoration:none;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.btn.secondary { background: #22c55e; color:#032; }
+.btn:hover{ transform: translateY(-3px); box-shadow:0 12px 28px rgba(0,0,0,0.55); }
+
+#ocean-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.global-header {
+  position: absolute !important; /* override dari fixed */
+  top: 20px;
+  right: 90px;
+  z-index: 99; /* lebih rendah dari nav biar ketutup konten */
+  align-items: center;
+}
+/* ===========================
+   page4: style-page4.css
+   =========================== */
+
+/* ... kode sebelumnya tetap ... */
+
+/* PROJECT CARD hover efek */
+.project-card:hover {
+  border-color: cyan;
+  box-shadow: 0 0 25px rgba(0,255,255,0.8), 0 0 50px rgba(0,255,255,0.6);
+  animation: card-shake 0.4s ease-in-out;
+}
+
+/* Dark mode hover */
+body.dark-mode .project-card:hover {
+  border-color: rgba(0,255,220,0.95);
+  box-shadow: 0 10px 40px rgba(0,255,220,0.06), 0 0 40px rgba(0,200,255,0.06);
+  animation: card-shake 0.4s ease-in-out;
+}
+
+/* Animasi getar */
+@keyframes card-shake {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  20%  { transform: translate(-2px, 1px) rotate(-0.5deg); }
+  40%  { transform: translate(2px, -1px) rotate(0.5deg); }
+  60%  { transform: translate(-1px, 2px) rotate(-0.5deg); }
+  80%  { transform: translate(1px, -2px) rotate(0.5deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+
+/* Responsive */
+@media (max-width:1024px){
+  .portfolio-grid { grid-template-columns: repeat(2, minmax(220px,1fr)); }
+}
+@media (max-width:768px){
+  .portfolio-title { font-size:36px; }
+  .portfolio-subtitle {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 40px;
+    }
+  .portfolio-grid { grid-template-columns:1fr; gap:22px; margin:0 12px; }
+  .project-card { padding:18px; }
+  .card-desc { font-size:15px; }
+}
+

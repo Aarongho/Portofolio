@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact</title>
+  <!-- Orbitron font -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style-global.css">
+  <link rel="stylesheet" href="style-navbar.css">
+  <link rel="stylesheet" href="style-page6.css">
+  
+  
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="page1.html" class="home-icon">🏠</a>
+    </div>
+    <div class="nav-center">
+      <a href="page3.html">About Me</a>
+      <a href="page4.html">Portfolio</a>
+      <a href="page5.html">Certificate</a>
+      <a href="page6.html" class="active">Contact</a>
+      <a href="page7.html">Data Challenge</a>
+    </div>
+
+    <div class="global-header">
+      <button id="mute-btn" class="header-btn">🔊</button>
+      <div class="toggle-container">
+      <input type="checkbox" id="theme-toggle">
+      <label for="theme-toggle" class="toggle-slider">
+          <span class="label-text">Light Mode</span>
+          <div class="knob"><span class="icon">☀️</span></div>
+        </label>
+      </div>
+    </div>
+
+    <div class="hamburger"><div></div><div></div><div></div></div>
+    <!-- mobile menu (slide-in) -->
+    <div class="mobile-overlay"></div>
+    <div class="mobile-menu">
+        <a href="page1.html">🏠 Home</a>
+        <a href="page3.html">About Me</a>
+        <a href="page4.html">Portfolio</a>
+        <a href="page5.html">Certificate</a>
+        <a href="page6.html">Contact</a>
+        <a href="page7.html">Data Challenge</a>
+    </div>
+
+  </nav>
+
+  <hr class="navbar-divider"/>
+
+  <h1>LET'S START A CONNECTION!</h1>
+  <p>Let's Know and Learn Together To Reach New Heights!</p>
+
+  <div class="contact-container">
+
+    <div class="contact-box github" onclick="window.open('https://github.com/Aarongho','_blank')">
+      <img src="image/github.png" alt="GitHub">
+      <div class="contact-text">
+        <span>GITHUB</span>
+        <small>@Aarongho</small>
+      </div>
+    </div>
+
+    <div class="contact-box linkedin" onclick="window.open('https://www.linkedin.com/in/aaron-gho-4793601a1/','_blank')">
+      <img src="image/linkedin.png" alt="LinkedIn">
+      <div class="contact-text">
+        <span>LINKEDIN</span>
+        <small>@aaron gho</small>
+      </div>
+    </div>
+
+    <div class="contact-box instagram" onclick="window.open('https://www.instagram.com/aron.gho','_blank')">
+      <img src="image/instagram.png" alt="Instagram">
+      <div class="contact-text">
+        <span>INSTAGRAM</span>
+        <small>@aron.gho</small>
+      </div>
+    </div>
+
+    <div class="contact-box facebook" onclick="window.open('https://www.facebook.com/people/Aaron-Winston-Gho/61558149635462/','_blank')">
+      <img src="image/facebook.png" alt="Facebook">
+      <div class="contact-text">
+        <span>FACEBOOK</span>
+        <small>Aaron Winston Gho</small>
+      </div>
+    </div>
+
+    <div class="contact-box whatsapp" onclick="window.open('https://wa.me/6281383156185','_blank')">
+      <img src="image/whatsapp.png" alt="WhatsApp">
+      <div class="contact-text">
+        <span>WHATSAPP</span>
+        <small>0813-8315-6185</small>
+      </div>
+    </div>
+
+    <div class="contact-box line" onclick="window.open('https://line.me/ti/p/~aaron_gho.','_blank')">
+      <img src="image/line.png" alt="LINE">
+      <div class="contact-text">
+        <span>LINE</span>
+        <small>aaron_gho.</small>
+      </div>
+    </div>
+
+    <div class="contact-box email" onclick="window.location.href='mailto:aaron.winston.gho@gmail.com'">
+      <img src="image/email.png" alt="Email">
+      <div class="contact-text">
+        <span>EMAIL</span>
+        <small>aaron.winston.gho@gmail.com</small>
+      </div>
+    </div>
+
+  </div>
+
+  <iframe src="music.html" style="display:none;"></iframe>
+  <canvas id="ocean-canvas"></canvas>
+  <script src="script-global.js"></script>
+  <script src="script-navbar.js"></script>
+  <script src="script-page6.js"></script>
+</body>
+</html>

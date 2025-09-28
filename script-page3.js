@@ -16,6 +16,35 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const profileCircle = document.querySelector(".profile-circle");
+  const clickText = document.getElementById("click-text");
+
+  document.querySelector(".profile-container").addEventListener("click", () => {
+    profileCircle.classList.toggle("flip");
+    if (profileCircle.classList.contains("flip")) {
+      clickText.textContent = "Click Me Again";
+    } else {
+      clickText.textContent = "Click Me";
+    }
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const navLinks = document.querySelectorAll(".nav-center a");
+  let currentPage = window.location.pathname.split("/").pop();
+
+  if (currentPage === "" || currentPage === "/") {
+    currentPage = "page1.html"; // fallback home
+  }
+
+  navLinks.forEach(link => {
+    if (link.getAttribute("href") === currentPage) {
+      link.classList.add("active");
+    }
+  });
+});
+
 // Toggle active skill chip
 document.querySelectorAll(".skill-chip").forEach(chip => {
   chip.addEventListener("click", () => {
@@ -27,6 +56,14 @@ document.querySelectorAll(".skill-chip").forEach(chip => {
     }
   });
 });
+
+/* === THEME TOGGLE LISTENER === */
+const themeToggle = document.getElementById("theme-toggle");
+if (themeToggle) {
+  themeToggle.addEventListener("change", () => {
+    setTargetGradient(themeToggle.checked); // true = dark
+  });
+}
 
 const canvas = document.getElementById("ocean-canvas");
 const ctx = canvas.getContext("2d");
@@ -47,6 +84,45 @@ let lastSquid = Date.now();
 let lastTsunami = Date.now();
 let bgOverride = null;
 
+// Durasi transisi (ms)
+const TRANSITION_DURATION = 1200; // 1.2 detik
+
+let displayGradient = { top: [102, 204, 255], bottom: [179, 229, 255] };
+let targetGradient = { top: [102, 204, 255], bottom: [179, 229, 255] };
+let startGradient = { top: [102, 204, 255], bottom: [179, 229, 255] };
+let gradientStartTime = null;
+
+
+/* === Utils === */
+function lerp(a, b, t) {
+  return a + (b - a) * t;
+}
+function lerpColor(c1, c2, t) {
+  return [
+    Math.round(lerp(c1[0], c2[0], t)),
+    Math.round(lerp(c1[1], c2[1], t)),
+    Math.round(lerp(c1[2], c2[2], t))
+  ];
+}
+function setTargetGradient(isDark) {
+  // simpan posisi saat ini jadi starting point
+  startGradient = {
+    top: [...displayGradient.top],
+    bottom: [...displayGradient.bottom]
+  };
+
+  // tentukan target baru
+  if (isDark) {
+    targetGradient = { top: [0, 17, 31], bottom: [0, 0, 0] };
+  } else {
+    targetGradient = { top: [102, 204, 255], bottom: [179, 229, 255] };
+  }
+
+  // reset timer transisi
+  gradientStartTime = performance.now();
+}
+
+
 /* === Spawn Jellyfish (Dark) === */
 function spawnJelly() {
   const neonColors = ["#0ff", "#f0f", "#ff0", "#8f0"];
@@ -61,7 +137,6 @@ function spawnJelly() {
   });
 }
 
-/* === Jelly Explosion === */
 function explodeJelly(j) {
   for (let i = 0; i < 20; i++) {
     sparks.push({
@@ -81,7 +156,6 @@ function explodeJelly(j) {
   });
 }
 
-/* === Spawn Lantern Fish (Dark Rare) === */
 function spawnLanternFish() {
   lanternFish.push({
     x: -100,
@@ -110,7 +184,6 @@ function drawLanternFish() {
   });
 }
 
-/* === Spawn Giant Squid (Light) === */
 function spawnGiantSquid() {
   const colors = ["#9933ff", "#ff3333", "#33ccff"];
   const color = colors[Math.floor(Math.random() * colors.length)];
@@ -121,7 +194,7 @@ function spawnGiantSquid() {
     color,
     spawnTime: Date.now()
   });
-  bgOverride = { color, until: Date.now() + 2000 }; // ubah background 2s
+  bgOverride = { color, until: Date.now() + 2000 };
 }
 function drawGiantSquids() {
   giantSquids.forEach((s, i) => {
@@ -150,11 +223,8 @@ function drawGiantSquids() {
   });
 }
 
-/* === Spawn Tsunami (Light) === */
 function spawnTsunami() {
-  tsunamis.push({
-    start: Date.now()
-  });
+  tsunamis.push({ start: Date.now() });
 }
 function drawTsunamis() {
   tsunamis.forEach((t, i) => {
@@ -168,7 +238,6 @@ function drawTsunamis() {
   });
 }
 
-/* === Draw Bubbles === */
 function drawBubbles() {
   ctx.fillStyle = "rgba(200,255,255,0.5)";
   bubbles.forEach((b, i) => {
@@ -181,7 +250,6 @@ function drawBubbles() {
   });
 }
 
-/* === Draw Jellyfish === */
 function drawJellyfish() {
   jellies.forEach(j => {
     let floatY = Math.sin(Date.now() / 1000 + j.floatOffset) * 10;
@@ -209,7 +277,6 @@ function drawJellyfish() {
   });
 }
 
-/* === Sparks === */
 function drawSparks() {
   sparks.forEach((s, i) => {
     ctx.beginPath();
@@ -226,7 +293,6 @@ function drawSparks() {
   });
 }
 
-/* === Shockwaves === */
 function drawShockwaves() {
   shockwaves.forEach((sw, i) => {
     ctx.beginPath();
@@ -243,7 +309,6 @@ function drawShockwaves() {
   });
 }
 
-/* === Update Jellyfish === */
 function updateJellies() {
   let now = Date.now();
   jellies.forEach((j, i) => {
@@ -259,7 +324,6 @@ function updateJellies() {
   }
 }
 
-/* === Update Rare Spawns === */
 function updateRareSpawns() {
   let now = Date.now();
   if (document.body.classList.contains("dark-mode")) {
@@ -278,19 +342,31 @@ function updateRareSpawns() {
     }
   }
 }
-
-/* === Draw Ocean Scene === */
 function drawOcean() {
   ctx.clearRect(0, 0, width, height);
 
-  if (document.body.classList.contains("dark-mode")) {
-    let gradient = ctx.createLinearGradient(0, 0, 0, height);
-    gradient.addColorStop(0, "#00111f");
-    gradient.addColorStop(1, "#000000");
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, width, height);
+  // progress transisi (0 → 1)
+  let progress = 1;
+  if (gradientStartTime !== null) {
+    let elapsed = performance.now() - gradientStartTime;
+    progress = Math.min(elapsed / TRANSITION_DURATION, 1);
 
-    drawBubbles();
+    // update display gradient
+    displayGradient.top = lerpColor(startGradient.top, targetGradient.top, progress);
+    displayGradient.bottom = lerpColor(startGradient.bottom, targetGradient.bottom, progress);
+
+    if (progress === 1) gradientStartTime = null; // selesai
+  }
+
+  let gradient = ctx.createLinearGradient(0, 0, 0, height);
+  gradient.addColorStop(0, `rgb(${displayGradient.top.join(",")})`);
+  gradient.addColorStop(1, `rgb(${displayGradient.bottom.join(",")})`);
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, width, height);
+
+  // entity
+  drawBubbles();
+  if (document.body.classList.contains("dark-mode")) {
     drawJellyfish();
     drawSparks();
     drawShockwaves();
@@ -298,18 +374,6 @@ function drawOcean() {
     updateJellies();
     updateRareSpawns();
   } else {
-    if (bgOverride && Date.now() < bgOverride.until) {
-      ctx.fillStyle = bgOverride.color;
-      ctx.fillRect(0, 0, width, height);
-    } else {
-      let gradient = ctx.createLinearGradient(0, 0, 0, height);
-      gradient.addColorStop(0, "#66ccff");
-      gradient.addColorStop(1, "#b3e5ff");
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, width, height);
-    }
-
-    drawBubbles();
     drawGiantSquids();
     drawTsunamis();
     drawShockwaves();
@@ -319,7 +383,7 @@ function drawOcean() {
   requestAnimationFrame(drawOcean);
 }
 
-/* === Utils === */
+
 function hexToRgb(hex) {
   hex = hex.replace(/^#/, "");
   if (hex.length === 3) hex = hex.split("").map(c => c + c).join("");
@@ -327,10 +391,9 @@ function hexToRgb(hex) {
   return [(num >> 16) & 255, (num >> 8) & 255, num & 255].join(",");
 }
 
-/* === Init === */
 function initOcean() {
-  width = canvas.width = window.innerWidth;
-  height = canvas.height = window.innerHeight;
+  width = canvas.width = document.documentElement.scrollWidth;
+  height = canvas.height = document.documentElement.scrollHeight;
 
   bubbles = [];
   for (let i = 0; i < 40; i++) {
@@ -361,3 +424,25 @@ observer.observe(document.body, { attributes: true, attributeFilter: ["class"] }
 
 initOcean();
 drawOcean();
+
+// === INITIAL THEME SYNC ===
+window.addEventListener("DOMContentLoaded", () => {
+  const savedTheme = localStorage.getItem("theme") || "light";
+  const isDark = savedTheme === "dark";
+
+  // Sync toggle UI
+  if (themeToggle) themeToggle.checked = isDark;
+
+  // Sync body class
+  if (isDark) {
+    document.body.classList.add("dark-mode");
+  } else {
+    document.body.classList.remove("dark-mode");
+  }
+
+  // Sync gradient (langsung apply tanpa transisi)
+  setTargetGradient(isDark);
+  gradientStartTime = null; // skip animasi di load awal
+  displayGradient = { ...targetGradient };
+});
+

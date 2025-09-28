@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Page 4 - Portfolio</title>
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- your global + navbar CSS (ke-kamu) -->
+
+  <!-- page4 specific -->
+  <link rel="stylesheet" href="style-global.css">
+  <link rel="stylesheet" href="style-navbar.css">
+  <link rel="stylesheet" href="style-page4.css">
+</head>
+<body class="preload">
+
+  <!-- NAVBAR (jangan ubah isinya) -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="page1.html" class="home-icon">🏠</a>
+    </div>
+
+    <div class="nav-center">
+      <a href="page3.html">About Me</a>
+      <a href="page4.html" class="active">Portfolio</a>
+      <a href="page5.html">Certificate</a>
+      <a href="page6.html">Contact</a>
+      <a href="page7.html">Data Challenge</a>
+    </div>
+
+    <div class="global-header">
+        <button id="mute-btn" class="header-btn">🔊</button>
+        <div class="toggle-container">
+        <input type="checkbox" id="theme-toggle">
+        <label for="theme-toggle" class="toggle-slider">
+            <span class="label-text">Light Mode</span>
+            <div class="knob"><span class="icon">☀️</span></div>
+        </label>
+        </div>
+    </div>
+
+    <div class="hamburger">
+      <div></div><div></div><div></div>
+    </div>
+  </nav>
+
+  <!-- mobile menu (slide-in) -->
+  <div class="mobile-overlay"></div>
+  <div class="mobile-menu">
+    <a href="page1.html">🏠 Home</a>
+    <a href="page3.html">About Me</a>
+    <a href="page4.html">Portfolio</a>
+    <a href="page5.html">Certificate</a>
+    <a href="page6.html">Contact</a>
+    <a href="page7.html">Data Challenge</a>
+  </div>
+
+  <hr class="navbar-divider"/>
+
+  <!-- PORTFOLIO -->
+  <main class="portfolio">
+    <h1 class="portfolio-title">MY PROJECTS</h1>
+    <p class="portfolio-subtitle">A showcase of what I've learned, done, and gained.</p>
+
+    <div class="portfolio-filters">
+      <button class="filter-btn active" data-filter="all">All Projects</button>
+      <button class="filter-btn" data-filter="ml">Machine Learning</button>
+      <button class="filter-btn" data-filter="dl">Deep Learning</button>
+      <button class="filter-btn" data-filter="ts">Time Series</button>
+      <button class="filter-btn" data-filter="viz">Visualization</button>
+      <button class="filter-btn" data-filter="web">Web / App Dev</button>
+      <button class="filter-btn" data-filter="db">Database & Network</button>
+      <button class="filter-btn" data-filter="soft">Soft Skills Project</button>
+    </div>
+
+    <div class="portfolio-grid" id="projectsGrid">
+      <!-- Example cards: copy + edit to add more -->
+      <a href="page-ts.html" class="project-card" data-category="ts">
+        <div class="card-header">
+          <h3>Commodity Price Prediction</h3>
+        </div>
+        <div class="card-meta">
+          <div class="cat-pill">Time Series</div>
+          <div class="year-pill">2024</div>
+        </div>
+        <div class="emoji-row">
+          <span class="emoji-chip">📈</span>
+          <span class="emoji-chip">🛒</span>
+          <span class="emoji-chip">🌴</span>
+        </div>
+        <p class="card-desc">Forecasting daily food commodity prices across Indonesian provinces (Datavidia 9.0).</p>
+        <div class="card-cta">
+          <span class="btn">GitHub</span>
+        </div>
+      </a>
+
+      <a href="page-soft.html" class="project-card" data-category="soft">
+        <div class="card-header">
+          <h3>Event Organizer Leadership</h3>
+        </div>
+        <div class="card-meta">
+          <div class="cat-pill">Soft Skills</div>
+          <div class="year-pill">2025</div>
+        </div>
+        <div class="emoji-row">
+          <span class="emoji-chip">🎤</span>
+          <span class="emoji-chip">👥</span>
+          <span class="emoji-chip">📅</span>
+        </div>
+        <p class="card-desc">Managed multiple campus events, improving leadership, teamwork, and communication skills.</p>
+        <div class="card-cta">
+          <span class="btn">Details</span>
+        </div>
+      </a>
+
+      <!-- Add more sample cards (copy structure) -->
+      <a href="page-ml.html" class="project-card" data-category="ml">
+        <div class="card-header"><h3>Obesity Level Prediction</h3></div>
+        <div class="card-meta"><div class="cat-pill">Machine Learning</div><div class="year-pill">2025</div></div>
+        <div class="emoji-row"><span class="emoji-chip">🍔</span><span class="emoji-chip">🏋️‍♂️</span><span class="emoji-chip">📊</span></div>
+        <p class="card-desc">Predicting obesity levels using BMI, activity, and health records.</p>
+        <div class="card-cta"><span class="btn">GitHub</span></div>
+      </a>
+
+      <a href="page-dl.html" class="project-card" data-category="dl">
+        <div class="card-header"><h3>GAN for Pistachio Image Generation</h3></div>
+        <div class="card-meta"><div class="cat-pill">Deep Learning</div><div class="year-pill">2025</div></div>
+        <div class="emoji-row"><span class="emoji-chip">🥜</span><span class="emoji-chip">🤖</span><span class="emoji-chip">📷</span></div>
+        <p class="card-desc">GAN model to synthesize pistachio images for classification augmentation.</p>
+        <div class="card-cta"><span class="btn">GitHub</span></div>
+      </a>
+
+      <a href="page-viz.html" class="project-card" data-category="viz">
+        <div class="card-header"><h3>Interactive Dashboard</h3></div>
+        <div class="card-meta"><div class="cat-pill">Visualization</div><div class="year-pill">2025</div></div>
+        <div class="emoji-row"><span class="emoji-chip">📊</span><span class="emoji-chip">📉</span><span class="emoji-chip">🖥️</span></div>
+        <p class="card-desc">Building dashboards with interactive visualizations for business intelligence.</p>
+        <div class="card-cta"><span class="btn">GitHub</span></div>
+      </a>
+
+      <a href="page-web.html" class="project-card" data-category="web">
+        <div class="card-header"><h3>Obesity App (FastAPI + Streamlit)</h3></div>
+        <div class="card-meta"><div class="cat-pill">Web App</div><div class="year-pill">2025</div></div>
+        <div class="emoji-row"><span class="emoji-chip">🌐</span><span class="emoji-chip">⚙️</span><span class="emoji-chip">📱</span></div>
+        <p class="card-desc">Deployed obesity prediction as a web app using FastAPI + Streamlit.</p>
+        <div class="card-cta"><span class="btn">GitHub</span><span class="btn secondary">Live Demo</span></div>
+      </a>
+
+      <a href="page-db.html" class="project-card" data-category="db">
+        <div class="card-header"><h3>Database Optimization</h3></div>
+        <div class="card-meta"><div class="cat-pill">Database</div><div class="year-pill">2024</div></div>
+        <div class="emoji-row"><span class="emoji-chip">🗄️</span><span class="emoji-chip">⚡</span><span class="emoji-chip">🌐</span></div>
+        <p class="card-desc">Optimizing query performance and network load balancing for distributed DB systems.</p>
+        <div class="card-cta"><span class="btn">GitHub</span></div>
+      </a>
+    </div>
+  </main>
+
+  <iframe src="music.html" style="display:none;"></iframe>
+  <canvas id="ocean-canvas"></canvas>
+  <script src="script-global.js"></script>
+  <script src="script-navbar.js"></script>
+  <script src="script-page4.js"></script>
+</body>
+</html>

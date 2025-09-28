@@ -13,26 +13,51 @@
 
     <!-- NAVBAR -->
     <nav class="navbar">
-        <div class="nav-center">
-            <a href="page1.html" class="home-icon">🏠</a>
-            <a href="page3.html">About Me</a>
-            <a href="#">Portfolio</a>
-            <a href="#">Certificate</a>
-            <a href="#">Contact</a>
-            <a href="#">Data Challenge</a>
-        </div>
+    <!-- Left / Logo -->
+    <div class="nav-left">
+        <a href="page1.html" class="home-icon">🏠</a>
+    </div>
 
-        <div class="global-header">
-            <button id="mute-btn" class="header-btn">🔊</button>
-            <div class="toggle-container">
-              <input type="checkbox" id="theme-toggle">
-              <label for="theme-toggle" class="toggle-slider">
-                  <span class="label-text">Light Mode</span>
-                  <div class="knob"><span class="icon">☀️</span></div>
-              </label>
-            </div>
+    <!-- Center (Desktop Only) -->
+    <div class="nav-center">
+        <a href="page3.html">About Me</a>
+        <a href="page4.html">Portfolio</a>
+        <a href="page5.html">Certificate</a>
+        <a href="page6.html">Contact</a>
+        <a href="page7.html">Data Challenge</a>
+    </div>
+
+    <!-- Right (Desktop Only) -->
+    <div class="global-header">
+        <button id="mute-btn" class="header-btn">🔊</button>
+        <div class="toggle-container">
+        <input type="checkbox" id="theme-toggle">
+        <label for="theme-toggle" class="toggle-slider">
+            <span class="label-text">Light Mode</span>
+            <div class="knob"><span class="icon">☀️</span></div>
+        </label>
         </div>
+    </div>
+
+    <!-- Hamburger (mobile only, gantiin Home) -->
+    <div class="hamburger">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
     </nav>
+
+    <!-- Mobile Slide-in Menu -->
+    <div class="mobile-overlay"></div>
+    <div class="mobile-menu">
+        <a href="page1.html">🏠 Home</a>
+        <a href="page3.html">About Me</a>
+        <a href="page4.html">Portfolio</a>
+        <a href="#">Certificate</a>
+        <a href="#">Contact</a>
+        <a href="#">Data Challenge</a>
+    </div>
 
     <hr class="navbar-divider"/>
 
@@ -69,7 +94,7 @@
         One of my key projects involved building a deep learning forecasting model using LSTM. Even though
         the tuned model performed better than other options, the MAE and MSE values were still relatively
         high compared to the target range. This taught me that accuracy isn’t just about model tuning, but
-        also about understanding the data itself — handling noise, engineering informative features, and
+        also about understanding the data itself handling noise, engineering informative features, and
         exploring alternative architectures. It was a valuable lesson in combining technical rigor with clear
         communication to turn complex results into meaningful insights.
       </p>
@@ -86,7 +111,7 @@
           <span class="year">2025 – Now</span>
           <h3>PIC of Event Organizer – Data Science Club</h3>
           <p>
-            Served as the Person in Charge (PIC) of event organizing for the Data Science Club, successfully leading and coordinating three major events:  
+            Served as the Person in Charge of event organizer division for the Data Science Club, successfully leading and coordinating three major events:  
             <br> 1. DSC WDB (Waktu DSC Berbuka): fostering connection and inclusivity during Ramadan.  
             <br> 2. Smash N Fest: encouraged teamwork, sportsmanship, and bonding.  
             <br> 3. DSC Kind: led a social outreach program at an orphanage.  
@@ -103,7 +128,7 @@
             The solution was built using FastAPI for the backend API and integrated with a Streamlit web app for user interaction. 
             Users can input booking details such as lead time, guest type, room type, price, and special requests to receive real-time predictions along with probability scores and feature contribution analysis (SHAP values).  
           </p>
-          <p><b>Strengthened my skills in end-to-end ML pipelines, model deployment, and building interactive data applications.</b></p>
+          <p><b>Strengthened my skills in end to end ML pipelines, model deployment, and building interactive data applications.</b></p>
         </div>
 
         <!-- 3 -->
@@ -272,6 +297,7 @@
     <iframe src="music.html" style="display:none;"></iframe>
     <canvas id="ocean-canvas"></canvas>
     <script src="script-global.js"></script>
+    <script src="script-navbar.js"></script>
     <script src="script-page3.js"></script>
 </body>
 </html>
