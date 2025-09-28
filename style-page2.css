@@ -223,6 +223,9 @@ body:not(.dark-mode) .corner-clock {
   .portfolio-subtitle { font-size: 1.2rem; }
   .menu-container { grid-template-columns: 1fr; gap: 25px; }
   .modebox { font-size: 1.1rem; padding: 25px 40px; }
+  .corner-clock {
+    display: none !important;
+  }
 }
 
 body {

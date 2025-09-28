@@ -209,6 +209,64 @@ p {
   to   { transform: translate(25px, 25px); } /* percikan jalan lebih jauh */
 }
 /* Responsive Contact Box - HP lebih rapi */
+
+/* === MOBILE THEME TOGGLE === */
+@media (max-width: 768px) {
+  /* Sembunyikan label text */
+  .toggle-slider .label-text {
+    display: none !important;
+  }
+
+  /* Sembunyikan slider background */
+  .toggle-slider {
+    background: none !important;
+    border: none !important;
+    width: auto !important;
+    height: auto !important;
+    padding: 0;
+  }
+
+  /* Knob jadi tombol bulat */
+  .toggle-slider .knob {
+    position: static !important;
+    transform: none !important;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  /* === Dark Mode Knob === */
+  body.dark-mode .toggle-slider .knob {
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #0ff;
+    box-shadow: 0 0 10px #0ff;
+  }
+  body.dark-mode .toggle-slider .knob span.icon {
+    color: #0ff;
+  }
+
+  /* === Light Mode Knob === */
+  body:not(.dark-mode) .toggle-slider .knob {
+    background: #fff;
+    border: 2px solid #000;
+    box-shadow: 0 0 10px #000;
+  }
+  body:not(.dark-mode) .toggle-slider .knob span.icon {
+    color: #000;
+  }
+
+  /* Hover effect */
+  .toggle-slider .knob:hover {
+    transform: scale(1.1);
+  }
+}
+
+
 @media (max-width: 768px) {
   .contact-box {
     width: 90%;          /* biar gak mepet kiri-kanan */
