@@ -399,7 +399,7 @@ body.dark-mode .project-card .spotlight {
     display: flex; /* hamburger muncul */
   }
   .navbar-divider {
-    margin-top: 20px;
+    margin-top: -10px;
   }
 }
 

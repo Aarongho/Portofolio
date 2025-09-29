@@ -45,23 +45,23 @@
     <div class="project-card">
 
     <div class="card-header">
-        <h3>🥑📈 Avocado Price Forecasting</h3>
+        <h3>🖼️✨ Autoencoder for Image Denoising</h3>
     </div>
     <div class="card-meta">
-        <span class="cat-pill">Time Series Forecasting</span>
+        <span class="cat-pill">Deep Learning / Computer Vision</span>
         <span class="year-pill">2025</span>
     </div>
 
     <p class="card-desc">
-        A time series forecasting project that analyzes avocado price trends and predicts future prices using statistical methods and deep learning models.
+        A convolutional autoencoder model trained to remove noise from images. Synthetic noisy images were generated to simulate real-world denoising challenges.
     </p>
 
     <!-- SLIDER -->
     <div class="slider">
         <div class="slides">
-        <img src="image/4.png" alt="Trend Analysis">
-        <img src="image/5.png" alt="Seasonal Decomposition">
-        <img src="image/6.png" alt="Forecasting Results">
+        <img src="image/7.png" alt="Noisy Input Image">
+        <img src="image/8.png" alt="Clean Ground Truth">
+        <img src="image/9.png" alt="Autoencoder Reconstruction">
         </div>
         <button class="prev">❮</button>
         <button class="next">❯</button>
@@ -71,16 +71,16 @@
         <div class="info-box">
         <h4>🎯 What I Learned</h4>
         <ul>
-            <li>Performed seasonal decomposition and stationarity tests</li>
-            <li>Applied RobustScaler to stabilize training</li>
-            <li>Implemented neural network forecasting with hyperparameter tuning</li>
+            <li>Built convolutional autoencoder for image denoising</li>
+            <li>Generated synthetic noisy datasets for training</li>
+            <li>Applied dropout and tuning for sharper reconstructions</li>
         </ul>
         </div>
         <div class="info-box">
         <h4>🛠 Tech Stack</h4>
         <ul>
-            <li>Python, Pandas, NumPy</li>
-            <li>Matplotlib, Seaborn, Statsmodels</li>
+            <li>Python, NumPy, Matplotlib</li>
+            <li>OpenCV, PIL</li>
             <li>Scikit-learn</li>
             <li>TensorFlow / Keras, Keras Tuner</li>
         </ul>
@@ -90,19 +90,17 @@
     <div class="evaluation">
         <h4>📌 Evaluation / Next Step</h4>
         <p>
-        The tuned Keras model achieved lower MSE/MAE and higher R² compared to the untuned version, thanks to scaling and hyperparameter optimization. 
-        However, sudden market shifts remain challenging. Future work includes experimenting with LSTM/GRU architectures and hybrid models that combine ARIMA with neural networks.
+        The tuned autoencoder reduced reconstruction error (MSE) compared to the baseline and produced sharper denoised images. 
+        However, since the training used synthetic noise, generalization to real-world noisy images may be limited. 
+        Future improvements include using real noisy datasets, exploring perceptual loss functions, or adopting U-Net-based architectures.
         </p>
     </div>
 
     <div class="card-cta">
-    <a href="https://github.com/Aarongho/Portofolio-Projects/tree/main/Time%20Series/Forecasting%20Price" 
+    <a href="https://github.com/Aarongho/Portofolio-Projects/tree/main/Deep%20Learning/Autoenconder" 
         class="btn" target="_blank" rel="noopener noreferrer">View on GitHub</a>
     </div>
-
     </div>
-
-    
     <!-- END PROJECT CARD -->
 
     </div>

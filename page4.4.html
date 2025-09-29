@@ -41,27 +41,29 @@
 
     <div class="portfolio-grid">
 
-     <!-- PROJECT CARD -->
+    
+ 
+    <!-- PROJECT CARD -->
     <div class="project-card">
 
     <div class="card-header">
-        <h3>🥑📈 Avocado Price Forecasting</h3>
+        <h3>🥜📷🤖 GAN for Pistachio Image Generation</h3>
     </div>
     <div class="card-meta">
-        <span class="cat-pill">Time Series Forecasting</span>
+        <span class="cat-pill">Deep Learning / Generative Models</span>
         <span class="year-pill">2025</span>
     </div>
 
     <p class="card-desc">
-        A time series forecasting project that analyzes avocado price trends and predicts future prices using statistical methods and deep learning models.
+        A Generative Adversarial Network (GAN) trained to generate synthetic pistachio images for dataset augmentation and experimentation.
     </p>
 
     <!-- SLIDER -->
     <div class="slider">
         <div class="slides">
-        <img src="image/4.png" alt="Trend Analysis">
-        <img src="image/5.png" alt="Seasonal Decomposition">
-        <img src="image/6.png" alt="Forecasting Results">
+        <img src="image/10.png" alt="Generated Pistachio 1">
+        <img src="image/11.png" alt="Generated Pistachio 2">
+        <img src="image/12.png" alt="Generated Pistachio 3">
         </div>
         <button class="prev">❮</button>
         <button class="next">❯</button>
@@ -71,16 +73,16 @@
         <div class="info-box">
         <h4>🎯 What I Learned</h4>
         <ul>
-            <li>Performed seasonal decomposition and stationarity tests</li>
-            <li>Applied RobustScaler to stabilize training</li>
-            <li>Implemented neural network forecasting with hyperparameter tuning</li>
+            <li>Built a GAN for synthetic pistachio image generation</li>
+            <li>Applied FID score using InceptionV3 for evaluation</li>
+            <li>Balanced generator and discriminator training</li>
         </ul>
         </div>
         <div class="info-box">
         <h4>🛠 Tech Stack</h4>
         <ul>
-            <li>Python, Pandas, NumPy</li>
-            <li>Matplotlib, Seaborn, Statsmodels</li>
+            <li>Python, NumPy, Matplotlib</li>
+            <li>OpenCV, PIL</li>
             <li>Scikit-learn</li>
             <li>TensorFlow / Keras, Keras Tuner</li>
         </ul>
@@ -90,20 +92,18 @@
     <div class="evaluation">
         <h4>📌 Evaluation / Next Step</h4>
         <p>
-        The tuned Keras model achieved lower MSE/MAE and higher R² compared to the untuned version, thanks to scaling and hyperparameter optimization. 
-        However, sudden market shifts remain challenging. Future work includes experimenting with LSTM/GRU architectures and hybrid models that combine ARIMA with neural networks.
+        The GAN produced sharper pistachio images and achieved lower FID scores after tuning, proving its effectiveness for data augmentation. 
+        However, diversity is still limited, and some outputs repeat patterns. Future improvements include DCGAN, Wasserstein GAN, and conditional GAN approaches.
         </p>
     </div>
 
     <div class="card-cta">
-    <a href="https://github.com/Aarongho/Portofolio-Projects/tree/main/Time%20Series/Forecasting%20Price" 
+        <a href="https://github.com/Aarongho/Portofolio-Projects/tree/main/Deep%20Learning/GAN" 
         class="btn" target="_blank" rel="noopener noreferrer">View on GitHub</a>
     </div>
-
     </div>
-
-    
     <!-- END PROJECT CARD -->
+
 
     </div>
   </section>

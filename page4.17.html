@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Page 5 - Project Showcase</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style-global.css">
+  <link rel="stylesheet" href="style-navbar.css">
+  <link rel="stylesheet" href="page5.1.css">
+</head>
+
+
+<body>
+    <canvas id="matrix-canvas"></canvas>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="page4.html" class="back-btn-box">← Back</a>
+        </div>
+
+        <div div class="global-header">
+            <button id="mute-btn" class="header-btn">🔊</button>
+            <div class="toggle-container">
+            <input type="checkbox" id="theme-toggle">
+            <label for="theme-toggle" class="toggle-slider">
+                <span class="label-text">Light Mode</span>
+                <div class="knob"><span class="icon">☀️</span></div>
+            </label>
+            </div>
+        </div>
+    </nav>
+
+    <hr class="navbar-divider"/>
+
+
+
+
+  <section class="portfolio">
+    <h1 class="portfolio-title">Project Showcase</h1>
+    <p class="portfolio-subtitle">Highlight of my featured works</p>
+
+    <div class="portfolio-grid">
+
+    
+<!-- PROJECT CARD -->
+<div class="project-card">
+
+  <div class="card-header">
+    <h3>Education in Indonesia 2022</h3>
+  </div>
+  <div class="card-meta">
+    <span class="cat-pill">Data Visualization / R</span>
+    <span class="year-pill">2025</span>
+  </div>
+
+  <p class="card-desc">
+    A data visualization project on Indonesia’s education quality in 2022. Includes teacher and library distribution, participation trends, and education–poverty correlation.
+  </p>
+
+  <!-- SLIDER -->
+  <div class="slider">
+    <div class="slides">
+      <img src="image/49.png" alt="Teacher Distribution Chart">
+      <img src="image/50.png" alt="School Participation Trends">
+      <img src="image/51.png" alt="Education vs Poverty Correlation">
+    </div>
+    <button class="prev">❮</button>
+    <button class="next">❯</button>
+  </div>
+
+  <div class="info-boxes">
+    <div class="info-box">
+      <h4>🎯 What I Learned</h4>
+      <ul>
+        <li>Visualized disparities in teacher and library distribution</li>
+        <li>Analyzed school participation across age groups</li>
+        <li>Showed correlation between education and poverty</li>
+      </ul>
+    </div>
+    <div class="info-box">
+      <h4>🛠 Tech Stack</h4>
+      <ul>
+        <li>R, Shiny, bslib</li>
+        <li>ggplot2, plotly</li>
+        <li>dplyr, readxl</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="evaluation">
+    <h4>📌 Evaluation / Next Step</h4>
+    <p>
+      The visualizations clearly show that Indonesia has improved education participation since 2002, but disparities remain in teacher and library distribution. 
+      Provinces with fewer resources struggle with educational outcomes, reinforcing poverty cycles. 
+      Next steps include adding real-time data sources, more indicators such as dropout rates, and predictive models to support SDG 4 targets for 2030.
+    </p>
+  </div>
+
+  <div class="card-cta">
+    <a href="https://github.com/Aarongho/Portofolio-Projects/tree/main/Data%20Visualization/Education%20Indonesia%202022" 
+       class="btn" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+  </div>
+</div>
+<!-- END PROJECT CARD -->
+
+
+
+    </div>
+  </section>
+  <iframe src="music.html" style="display:none;"></iframe>
+  
+  <script src="script-global.js"></script>
+  <script src="script-navbar.js"></script>
+  <script src="page5.1.js"></script>
+
+
+</body>
+</html>

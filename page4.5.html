@@ -41,27 +41,27 @@
 
     <div class="portfolio-grid">
 
-     <!-- PROJECT CARD -->
+    <!-- PROJECT CARD -->
     <div class="project-card">
 
     <div class="card-header">
-        <h3>🥑📈 Avocado Price Forecasting</h3>
+        <h3>🚢🔍 YOLO based Ship Detection</h3>
     </div>
     <div class="card-meta">
-        <span class="cat-pill">Time Series Forecasting</span>
+        <span class="cat-pill">Deep Learning / Object Detection</span>
         <span class="year-pill">2025</span>
     </div>
 
     <p class="card-desc">
-        A time series forecasting project that analyzes avocado price trends and predicts future prices using statistical methods and deep learning models.
+        Ship detection using YOLO models (v4, v8, v11). Compared their performance in accuracy, speed, and robustness for object detection tasks.
     </p>
 
     <!-- SLIDER -->
     <div class="slider">
         <div class="slides">
-        <img src="image/4.png" alt="Trend Analysis">
-        <img src="image/5.png" alt="Seasonal Decomposition">
-        <img src="image/6.png" alt="Forecasting Results">
+        <img src="image/13.png" alt="YOLOv4 Detection">
+        <img src="image/14.png" alt="YOLOv8 Detection">
+        <img src="image/15.png" alt="YOLOv11 Detection">
         </div>
         <button class="prev">❮</button>
         <button class="next">❯</button>
@@ -71,18 +71,18 @@
         <div class="info-box">
         <h4>🎯 What I Learned</h4>
         <ul>
-            <li>Performed seasonal decomposition and stationarity tests</li>
-            <li>Applied RobustScaler to stabilize training</li>
-            <li>Implemented neural network forecasting with hyperparameter tuning</li>
+            <li>Trained and evaluated YOLO models for ship detection</li>
+            <li>Learned trade-offs between accuracy and inference speed</li>
+            <li>Applied evaluation metrics: precision, recall, mAP</li>
         </ul>
         </div>
         <div class="info-box">
         <h4>🛠 Tech Stack</h4>
         <ul>
-            <li>Python, Pandas, NumPy</li>
-            <li>Matplotlib, Seaborn, Statsmodels</li>
-            <li>Scikit-learn</li>
-            <li>TensorFlow / Keras, Keras Tuner</li>
+            <li>Python, NumPy, Pandas</li>
+            <li>Matplotlib, Seaborn</li>
+            <li>OpenCV, TensorFlow</li>
+            <li>Ultralytics YOLOv8 / YOLOv11</li>
         </ul>
         </div>
     </div>
@@ -90,20 +90,19 @@
     <div class="evaluation">
         <h4>📌 Evaluation / Next Step</h4>
         <p>
-        The tuned Keras model achieved lower MSE/MAE and higher R² compared to the untuned version, thanks to scaling and hyperparameter optimization. 
-        However, sudden market shifts remain challenging. Future work includes experimenting with LSTM/GRU architectures and hybrid models that combine ARIMA with neural networks.
+        YOLOv4 provided a stable baseline but was slower and less accurate. YOLOv8 improved both speed and detection quality, while YOLOv11 delivered the best performance overall. 
+        Next steps include dataset expansion, fine-tuning YOLOv11, and real-time deployment for ship surveillance systems.
         </p>
     </div>
 
     <div class="card-cta">
-    <a href="https://github.com/Aarongho/Portofolio-Projects/tree/main/Time%20Series/Forecasting%20Price" 
+        <a href="https://github.com/Aarongho/Portofolio-Projects/blob/main/Deep%20Learning/Object%20Detection/Readme.md" 
         class="btn" target="_blank" rel="noopener noreferrer">View on GitHub</a>
     </div>
-
     </div>
-
-    
     <!-- END PROJECT CARD -->
+
+
 
     </div>
   </section>

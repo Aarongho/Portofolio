@@ -41,27 +41,29 @@
 
     <div class="portfolio-grid">
 
-     <!-- PROJECT CARD -->
+    
+ 
+    <!-- PROJECT CARD -->
     <div class="project-card">
 
     <div class="card-header">
-        <h3>🥑📈 Avocado Price Forecasting</h3>
+        <h3>Red Wine Quality Prediction</h3>
     </div>
     <div class="card-meta">
-        <span class="cat-pill">Time Series Forecasting</span>
+        <span class="cat-pill">Machine Learning</span>
         <span class="year-pill">2025</span>
     </div>
 
     <p class="card-desc">
-        A time series forecasting project that analyzes avocado price trends and predicts future prices using statistical methods and deep learning models.
+        Predicting red wine quality using deep learning with both Keras Sequential and Functional models, compared and optimized with hyperparameter tuning.
     </p>
 
     <!-- SLIDER -->
     <div class="slider">
         <div class="slides">
-        <img src="image/4.png" alt="Trend Analysis">
-        <img src="image/5.png" alt="Seasonal Decomposition">
-        <img src="image/6.png" alt="Forecasting Results">
+        <img src="image/22.png" alt="Wine Dataset Distribution">
+        <img src="image/23.png" alt="Training Accuracy and Loss">
+        <img src="image/24.png" alt="Prediction vs Actual Quality">
         </div>
         <button class="prev">❮</button>
         <button class="next">❯</button>
@@ -71,17 +73,17 @@
         <div class="info-box">
         <h4>🎯 What I Learned</h4>
         <ul>
-            <li>Performed seasonal decomposition and stationarity tests</li>
-            <li>Applied RobustScaler to stabilize training</li>
-            <li>Implemented neural network forecasting with hyperparameter tuning</li>
+            <li>Compared Sequential vs Functional API in Keras</li>
+            <li>Applied BatchNormalization, Dropout, and LeakyReLU</li>
+            <li>Used Keras Tuner for hyperparameter optimization</li>
         </ul>
         </div>
         <div class="info-box">
         <h4>🛠 Tech Stack</h4>
         <ul>
             <li>Python, Pandas, NumPy</li>
-            <li>Matplotlib, Seaborn, Statsmodels</li>
-            <li>Scikit-learn</li>
+            <li>Matplotlib, Seaborn, Plotly</li>
+            <li>Statsmodels, Scipy</li>
             <li>TensorFlow / Keras, Keras Tuner</li>
         </ul>
         </div>
@@ -90,20 +92,19 @@
     <div class="evaluation">
         <h4>📌 Evaluation / Next Step</h4>
         <p>
-        The tuned Keras model achieved lower MSE/MAE and higher R² compared to the untuned version, thanks to scaling and hyperparameter optimization. 
-        However, sudden market shifts remain challenging. Future work includes experimenting with LSTM/GRU architectures and hybrid models that combine ARIMA with neural networks.
+        Both Sequential and Functional models improved with tuning, with the Functional API providing slightly more flexibility and better performance. 
+        However, results are sensitive to hyperparameters. 
+        Future improvements include using ensemble models, cross-validation, and testing tree-based ML methods (XGBoost, RandomForest) as benchmarks.
         </p>
     </div>
 
     <div class="card-cta">
-    <a href="https://github.com/Aarongho/Portofolio-Projects/tree/main/Time%20Series/Forecasting%20Price" 
+        <a href="https://github.com/Aarongho/Portofolio-Projects/tree/main/Deep%20Learning/Functional%20&%20Sequential%20Models/Wine%20Quality%20Prediction" 
         class="btn" target="_blank" rel="noopener noreferrer">View on GitHub</a>
     </div>
-
     </div>
-
-    
     <!-- END PROJECT CARD -->
+
 
     </div>
   </section>

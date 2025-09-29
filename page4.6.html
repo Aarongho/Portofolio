@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Page 5 - Project Showcase</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style-global.css">
+  <link rel="stylesheet" href="style-navbar.css">
+  <link rel="stylesheet" href="page5.1.css">
+</head>
+
+
+<body>
+    <canvas id="matrix-canvas"></canvas>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="page4.html" class="back-btn-box">← Back</a>
+        </div>
+
+        <div div class="global-header">
+            <button id="mute-btn" class="header-btn">🔊</button>
+            <div class="toggle-container">
+            <input type="checkbox" id="theme-toggle">
+            <label for="theme-toggle" class="toggle-slider">
+                <span class="label-text">Light Mode</span>
+                <div class="knob"><span class="icon">☀️</span></div>
+            </label>
+            </div>
+        </div>
+    </nav>
+
+    <hr class="navbar-divider"/>
+
+
+
+
+  <section class="portfolio">
+    <h1 class="portfolio-title">Project Showcase</h1>
+    <p class="portfolio-subtitle">Highlight of my featured works</p>
+
+    <div class="portfolio-grid">
+
+        <!-- PROJECT CARD -->
+        <div class="project-card">
+
+        <div class="card-header">
+            <h3>Brain Tumor Classification</h3>
+        </div>
+        <div class="card-meta">
+            <span class="cat-pill">Deep Learning / Medical Imaging</span>
+            <span class="year-pill">2025</span>
+        </div>
+
+        <p class="card-desc">
+            A deep learning project using transfer learning with EfficientNet, DenseNet, and MobileNet to classify brain tumors from medical images.
+        </p>
+
+        <!-- SLIDER -->
+        <div class="slider">
+            <div class="slides">
+            <img src="image/16.png" alt="Sample Brain Scan">
+            <img src="image/17.png" alt="Model Comparison Chart">
+            <img src="image/18.png" alt="Confusion Matrix Result">
+            </div>
+            <button class="prev">❮</button>
+            <button class="next">❯</button>
+        </div>
+
+        <div class="info-boxes">
+            <div class="info-box">
+            <h4>🎯 What I Learned</h4>
+            <ul>
+                <li>Applied transfer learning with EfficientNet, DenseNet, and MobileNet</li>
+                <li>Compared classification reports and confusion matrices</li>
+                <li>Improved accuracy with fine-tuned pre-trained models</li>
+            </ul>
+            </div>
+            <div class="info-box">
+            <h4>🛠 Tech Stack</h4>
+            <ul>
+                <li>Python, Pandas, NumPy</li>
+                <li>Matplotlib, PIL</li>
+                <li>TensorFlow / Keras</li>
+                <li>EfficientNet, DenseNet, MobileNet</li>
+            </ul>
+            </div>
+        </div>
+
+        <div class="evaluation">
+            <h4>📌 Evaluation / Next Step</h4>
+            <p>
+            Transfer learning significantly improved classification accuracy compared to baseline CNNs. 
+            EfficientNetV2S achieved the best performance in accuracy and speed. 
+            However, dataset limitations may cause overfitting, so future work includes augmentation, cross-validation, and ensembling.
+            </p>
+        </div>
+
+        <div class="card-cta">
+            <a href="https://github.com/Aarongho/Portofolio-Projects/tree/main/Deep%20Learning/Functional%20%26%20Sequential%20Models/Brain%20Tumor" 
+            class="btn" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+        </div>
+        </div>
+        <!-- END PROJECT CARD -->
+
+
+
+    </div>
+  </section>
+  <iframe src="music.html" style="display:none;"></iframe>
+  
+  <script src="script-global.js"></script>
+  <script src="script-navbar.js"></script>
+  <script src="page5.1.js"></script>
+
+
+</body>
+</html>

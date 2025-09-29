@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Page 5 - Project Showcase</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style-global.css">
+  <link rel="stylesheet" href="style-navbar.css">
+  <link rel="stylesheet" href="page5.1.css">
+</head>
+
+
+<body>
+    <canvas id="matrix-canvas"></canvas>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="page4.html" class="back-btn-box">← Back</a>
+        </div>
+
+        <div div class="global-header">
+            <button id="mute-btn" class="header-btn">🔊</button>
+            <div class="toggle-container">
+            <input type="checkbox" id="theme-toggle">
+            <label for="theme-toggle" class="toggle-slider">
+                <span class="label-text">Light Mode</span>
+                <div class="knob"><span class="icon">☀️</span></div>
+            </label>
+            </div>
+        </div>
+    </nav>
+
+    <hr class="navbar-divider"/>
+
+
+
+
+  <section class="portfolio">
+    <h1 class="portfolio-title">Project Showcase</h1>
+    <p class="portfolio-subtitle">Highlight of my featured works</p>
+
+    <div class="portfolio-grid">
+<!-- PROJECT CARD -->
+<div class="project-card">
+
+  <div class="card-header">
+    <h3>Final Price Dashboard (Tableau)</h3>
+  </div>
+  <div class="card-meta">
+    <span class="cat-pill">Data Visualization / Tableau</span>
+    <span class="year-pill">2025</span>
+  </div>
+
+  <p class="card-desc">
+    An interactive Tableau dashboard visualizing hourly correlations between Final Price, Demand Rate, and Stock. Highlights key pricing dynamics in short-term market behavior.
+  </p>
+
+  <!-- SLIDER -->
+  <div class="slider">
+    <div class="slides">
+      <img src="image/46.png" alt="Final Price vs Demand Rate">
+      <img src="image/47.png" alt="Final Price vs Stock">
+      <img src="image/48.png" alt="Tableau Dashboard Overview">
+    </div>
+    <button class="prev">❮</button>
+    <button class="next">❯</button>
+  </div>
+
+  <div class="info-boxes">
+    <div class="info-box">
+      <h4>🎯 What I Learned</h4>
+      <ul>
+        <li>Built Tableau dashboards with multiple time-series charts</li>
+        <li>Identified positive correlation between demand and price</li>
+        <li>Observed negative correlation between stock and price</li>
+      </ul>
+    </div>
+    <div class="info-box">
+      <h4>🛠 Tech Stack</h4>
+      <ul>
+        <li>Tableau Desktop / Tableau Public</li>
+        <li>Excel / CSV Data Source</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="evaluation">
+    <h4>📌 Evaluation</h4>
+    <p>
+      The dashboard shows strong correlations: demand positively affects final price, while stock has an inverse effect. 
+      This validates pricing dynamics where scarcity drives up prices. 
+      Profit margin, competitor price, and capital were excluded due to their monthly rather than hourly variation. 
+      Overall, the dashboard effectively highlights the short-term drivers of price changes.
+    </p>
+  </div>
+
+  <div class="card-cta">
+    <a href="https://github.com/Aarongho/Portofolio-Projects/tree/main/Visualization/Tableu%20Project/Price%20Visualization%20Dashboard" 
+       class="btn" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+    <a href="https://public.tableau.com/app/profile/aaron.gho4833/viz/DashBoardEvaluation/Dashboard1?publish=yes" 
+       class="btn" target="_blank" rel="noopener noreferrer">View on Tableau</a>
+  </div>
+</div>
+<!-- END PROJECT CARD -->
+
+
+
+
+    </div>
+  </section>
+  <iframe src="music.html" style="display:none;"></iframe>
+  
+  <script src="script-global.js"></script>
+  <script src="script-navbar.js"></script>
+  <script src="page5.1.js"></script>
+
+
+</body>
+</html>
