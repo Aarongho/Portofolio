@@ -283,6 +283,16 @@ body.dark-mode .project-card:hover {
 }
 
 
+#paper-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: -2; /* lebih jauh di belakang ocean-canvas */
+  pointer-events: none;
+}
+
 /* Responsive */
 @media (max-width:1024px){
   .portfolio-grid { grid-template-columns: repeat(2, minmax(220px,1fr)); }

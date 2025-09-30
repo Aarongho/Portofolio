@@ -60,3 +60,125 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+
+// =========================
+// Paper Falling with Pile + Wind + Respawn Batch
+// =========================
+(function(){
+  const canvas = document.getElementById("paper-canvas");
+  const ctx = canvas.getContext("2d");
+  let papers = [];
+  let windActive = false;
+  let pile = []; // kertas yang sudah sampai bawah
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener("resize", resize);
+  resize();
+
+  class Paper {
+    constructor() {
+      this.reset();
+    }
+    reset() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * -canvas.height; 
+      this.size = 8 + Math.random() * 14;
+      this.speed = 1 + Math.random() * 2;
+      this.angle = Math.random() * Math.PI * 2;
+      this.spin = (Math.random() - 0.5) * 0.1;
+      this.opacity = 0.8 + Math.random() * 0.2;
+      this.color = ["#fdf5e6","#fff","#f4e1d2","#e8dcc7"][Math.floor(Math.random()*4)];
+      this.isInPile = false;
+    }
+    update() {
+      if (this.isInPile) return; // sudah menumpuk → berhenti
+      this.y += this.speed;
+      this.angle += this.spin;
+
+      if (windActive) {
+        this.x += 15 + Math.random() * 10;
+        this.y -= 2;
+      }
+
+      // kalau sampai dasar → masuk pile
+      if (this.y >= canvas.height - this.size/2 && !windActive) {
+        this.isInPile = true;
+        pile.push(this);
+      }
+
+      // kalau kesapu angin ke luar layar → reset lagi
+      if (this.x > canvas.width + 100 || this.y < -50) {
+        this.reset();
+      }
+    }
+    draw() {
+      ctx.save();
+      ctx.translate(this.x, this.y);
+      ctx.rotate(this.angle);
+      ctx.globalAlpha = this.opacity;
+      ctx.fillStyle = this.color;
+      ctx.fillRect(-this.size/2, -this.size/2, this.size, this.size*1.3);
+      ctx.restore();
+    }
+  }
+
+  function spawnBatch(n=70) {
+    papers = [];
+    pile = [];
+    for (let i = 0; i < n; i++) {
+      papers.push(new Paper());
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    papers.forEach(p => {
+      p.update();
+      p.draw();
+    });
+    requestAnimationFrame(animate);
+
+    checkPileHeight();
+    checkAllInPile();
+  }
+
+  function checkPileHeight() {
+    if (windActive) return;
+    if (pile.length === 0) return;
+
+    let avgY = pile.reduce((sum,p)=>sum+p.y,0) / pile.length;
+    let pileHeight = canvas.height - avgY;
+
+    if (pileHeight > canvas.height/3) {
+      triggerWind();
+    }
+  }
+
+  function checkAllInPile() {
+    if (windActive) return;
+    if (pile.length === papers.length) {
+      // semua kertas sudah di bawah → spawn batch baru
+      setTimeout(() => spawnBatch(70), 800);
+    }
+  }
+
+  function triggerWind() {
+    windActive = true;
+    // semua kertas keluar pile supaya bisa kesapu
+    pile.forEach(p => p.isInPile = false);
+    pile = [];
+
+    setTimeout(()=>{
+      windActive = false;
+      spawnBatch(70);
+    }, 2500);
+  }
+
+  // pertama kali spawn
+  spawnBatch(70);
+  animate();
+})();
