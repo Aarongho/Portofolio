@@ -1,121 +1,134 @@
-<section class="skills-section">
-    <h2>Skill Tree 🌳</h2>
 
-    <!-- Programming Languages -->
-    <div class="skill-box">
-      <h3>🚀 Programming Languages</h3>
-      <div class="skill-chips">
-        <div class="skill-chip">Python 🐍</div>
-        <div class="skill-chip">SQL 🗄️</div>
-        <div class="skill-chip">R 📊</div>
-        <div class="skill-chip">C ⚙️</div>
-        <div class="skill-chip">C++ 🧩</div>
-        <div class="skill-chip">JavaScript 🌐</div>
-        <div class="skill-chip">Scala 🔥</div>
-      </div>
-    </div>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      width: 100%;
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+    }
 
-    <!-- Machine Learning & Deep Learning -->
-    <div class="skill-box">
-      <h3>🤖 Machine Learning & Deep Learning</h3>
-      <div class="skill-chips">
-        <div class="skill-chip">Scikit-learn 🤖</div>
-        <div class="skill-chip">TensorFlow 🧠</div>
-        <div class="skill-chip">PyTorch 🔥</div>
-        <div class="skill-chip">Keras ⚡</div>
-        <div class="skill-chip">Joblib 📦</div>
-        <div class="skill-chip">XGBoost 🚀</div>
-        <div class="skill-chip">Random Forest 🌳</div>
-        <div class="skill-chip">Scipy 📐</div>
-      </div>
-    </div>
+    .navbar-divider {
+      width: 100%;
+      border: none;
+      border-top: 2px solid #00ffe5;
+      margin: 0;
+      box-shadow: 0 0 8px #00ffe5;
+    }
 
-    <!-- Data Analysis & Visualization -->
-    <div class="skill-box">
-      <h3>📊 Data Analysis & Visualization</h3>
-      <div class="skill-chips">
-        <div class="skill-chip">Matplotlib 📈</div>
-        <div class="skill-chip">Plotly 📊</div>
-        <div class="skill-chip">Pandas 🐼</div>
-        <div class="skill-chip">Numpy 🔢</div>
-        <div class="skill-chip">Seaborn 🌊</div>
-        <div class="skill-chip">Tableau 📊</div>
-        <div class="skill-chip">Excel 📑</div>
-        <div class="skill-chip">Geoplotlib 🌍</div>
-      </div>
-    </div>
+    .global-header {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      margin-left: auto;
+    }
 
-    <!-- Web Development & Deployment -->
-    <div class="skill-box">
-      <h3>💻 Web Development & Deployment</h3>
-      <div class="skill-chips">
-        <div class="skill-chip">Streamlit 🚀</div>
-        <div class="skill-chip">FastAPI ⚡</div>
-        <div class="skill-chip">Railway 🚂</div>
-        <div class="skill-chip">HTML 🌐</div>
-        <div class="skill-chip">CSS 🎨</div>
-        <div class="skill-chip">JavaScript 📜</div>
-      </div>
-    </div>
+    .contact-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      padding: 50px 20px;
+    }
 
-    <!-- Networking & Cloud -->
-    <div class="skill-box">
-      <h3>🌐 Networking & Cloud</h3>
-      <div class="skill-chips">
-        <div class="skill-chip">Cisco 🌍</div>
-        <div class="skill-chip">Eraser 🧹</div>
-      </div>
-    </div>
+    .contact-box {
+      position: relative;
+      width: 520px; 
+      height: 130px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 25px;
+      padding: 0 30px;
+      font-size: 16px;
+      cursor: pointer;
+      overflow: hidden;
+      border: 3px solid var(--neon-color);
+      background: linear-gradient(145deg, #111, #1a1a1a, #000);
+      box-shadow: 0 0 20px var(--neon-color);
+      transition: transform 0.2s ease, box-shadow 0.3s ease, opacity 0.5s ease;
+      will-change: transform, opacity;
+      opacity: 0;
+      transform: translateY(50px) scale(0.9);
+    }
 
-    <!-- Tools -->
-    <div class="skill-box">
-      <h3>🛠️ Tools</h3>
-      <div class="skill-chips">
-        <div class="skill-chip">Google Colab ☁️</div>
-        <div class="skill-chip">Visual Studio Code 💻</div>
-        <div class="skill-chip">MySQL 🗄️</div>
-        <div class="skill-chip">Figma 🎨</div>
-        <div class="skill-chip">Anaconda 🐍</div>
-        <div class="skill-chip">Docker 🐳</div>
-        <div class="skill-chip">R Studio 📊</div>
-        <div class="skill-chip">Jupyter Notebook 📓</div>
-        <div class="skill-chip">Cisco Packet Tracer 🌐</div>
-        <div class="skill-chip">Excalidraw ✏️</div>
-      </div>
-    </div>
+    .contact-box img {
+      width: 60px;
+      height: 60px;
+    }
 
-    <!-- Softskills -->
-    <div class="skill-box">
-      <h3>🌟 Softskills</h3>
-      <div class="skill-chips">
-        <div class="skill-chip">Energetic ⚡</div>
-        <div class="skill-chip">Public Speaking 🎤</div>
-        <div class="skill-chip">Adaptive 🔄</div>
-        <div class="skill-chip">Critical Thinking 🧠</div>
-        <div class="skill-chip">Time Management ⏳</div>
-        <div class="skill-chip">Initiative 🚀</div>
-        <div class="skill-chip">Innovation 💡</div>
-      </div>
-    </div>
-  </section>
+    .contact-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
 
-  <section class="about">
-    <h1>Aaron Winston Gho</h1>
-    <p>
-      I’m an undergraduate data science student passionate about machine learning and deep learning,
-      with experience in forecasting, classification, image recognition, and image generation. I enjoy
-      working with both structured and unstructured data, building dashboards, web applications, and
-      interactive visualizations that make insights easy to understand. Outside of coding, I’m an energetic
-      communicator who loves public speaking and hosting events as an MC — skills that help me engage
-      with people and keep the energy alive in any team.
-    </p>
-    <p>
-      One of my key projects involved building a deep learning forecasting model using LSTM. Even though
-      the tuned model performed better than other options, the MAE and MSE values were still relatively
-      high compared to the target range. This taught me that accuracy isn’t just about model tuning, but
-      also about understanding the data itself — handling noise, engineering informative features, and
-      exploring alternative architectures. It was a valuable lesson in combining technical rigor with clear
-      communication to turn complex results into meaningful insights.
-    </p>
-    <button class="cv-btn">Download CV</button>
-  </section>
+    .contact-text span {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .contact-text small {
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    .contact-box:hover {
+      box-shadow: 0 0 25px var(--neon-color),
+                  0 0 50px var(--neon-color),
+                  0 0 80px var(--neon-color);
+    }
+
+    .contact-box:hover .contact-text span {
+      animation: glitch 0.8s infinite;
+      color: var(--neon-color);
+      text-shadow: 0 0 5px var(--neon-color), 0 0 15px var(--neon-color);
+    }
+
+    @keyframes glitch {
+      0% { transform: translate(0, 0); }
+      20% { transform: translate(-2px, 2px); }
+      40% { transform: translate(2px, -2px); }
+      60% { transform: translate(-1px, -1px); }
+      80% { transform: translate(1px, 1px); }
+      100% { transform: translate(0, 0); }
+    }
+
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      transform: scale(0);
+      animation: rippleAnim 0.6s linear;
+      background: var(--neon-color);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    @keyframes rippleAnim {
+      to { transform: scale(4); opacity: 0; }
+    }
+
+    /* Warna neon unik */
+    .github    { --neon-color: #00fff7; }  /* cyan terang */
+    .linkedin  { --neon-color: #ff6f00; }  /* oranye */
+    .instagram { --neon-color: #ff0099; }  /* pink neon */
+    .facebook  { --neon-color: #8a2be2; }  /* ungu neon */
+    .whatsapp  { --neon-color: #7fff00; }  /* hijau lime */
+    .line      { --neon-color: #ff1744; }  /* merah neon */
+    .email     { --neon-color: #ffe600; }  /* kuning neon */
+
+    .animate-in {
+      opacity: 1 !important;
+      transform: translateY(0) scale(1) !important;
+      transition: all 0.7s ease;
+    }
+
+    .animate-out {
+      opacity: 0 !important;
+      transform: translateY(50px) scale(0.9) !important;
+      transition: all 0.5s ease;
+    }

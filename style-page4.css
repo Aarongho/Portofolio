@@ -231,6 +231,8 @@ body.dark-mode .card-desc { color: rgba(255, 255, 255, 0.75); }
   transition: transform .18s ease, box-shadow .18s ease;
 }
 .btn.secondary { background: #22c55e; color:#032; }
+.btn.third { background: #c5b822; color:#032; }
+.btn.fourth { background: #c57122; color:#032; }
 .btn:hover{ transform: translateY(-3px); box-shadow:0 12px 28px rgba(0,0,0,0.55); }
 
 #ocean-canvas {
