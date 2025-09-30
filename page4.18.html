@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Page 5 - Project Showcase</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style-global.css">
+  <link rel="stylesheet" href="style-navbar.css">
+  <link rel="stylesheet" href="page5.1.css">
+</head>
+
+
+<body>
+    <canvas id="matrix-canvas"></canvas>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="page4.html" class="back-btn-box">← Back</a>
+        </div>
+
+        <div div class="global-header">
+            <button id="mute-btn" class="header-btn">🔊</button>
+            <div class="toggle-container">
+            <input type="checkbox" id="theme-toggle">
+            <label for="theme-toggle" class="toggle-slider">
+                <span class="label-text">Light Mode</span>
+                <div class="knob"><span class="icon">☀️</span></div>
+            </label>
+            </div>
+        </div>
+    </nav>
+
+    <hr class="navbar-divider"/>
+
+
+
+
+  <section class="portfolio">
+    <h1 class="portfolio-title">Project Showcase</h1>
+    <p class="portfolio-subtitle">Highlight of my featured works</p>
+
+    <div class="portfolio-grid">
+<!-- PROJECT CARD -->
+<div class="project-card">
+
+  <div class="card-header">
+    <h3>European City Analysis</h3>
+  </div>
+  <div class="card-meta">
+    <span class="cat-pill">Data Visualization / Tableau</span>
+    <span class="year-pill">2025</span>
+  </div>
+
+  <p class="card-desc">
+    A Tableau dashboard analyzing European cities. Includes geographic distribution on maps, average latitude by country, and pie charts showing city counts per country.
+  </p>
+
+  <!-- SLIDER -->
+  <div class="slider">
+    <div class="slides">
+      <img src="image/52.png" alt="Map of European Cities">
+      <img src="image/53.png" alt="City Count and Latitude">
+      <img src="image/54.png" alt="Pie Chart of City Distribution">
+    </div>
+    <button class="prev">❮</button>
+    <button class="next">❯</button>
+  </div>
+
+  <div class="info-boxes">
+    <div class="info-box">
+      <h4>🎯 What I Learned</h4>
+      <ul>
+        <li>Built multi-view dashboards with maps, bar charts, and pie charts</li>
+        <li>Analyzed geographic spread of cities by country</li>
+        <li>Interpreted disparities in city counts across countries</li>
+      </ul>
+    </div>
+    <div class="info-box">
+      <h4>🛠 Tech Stack</h4>
+      <ul>
+        <li>Tableau</li>
+        <li>Excel / CSV Dataset</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="evaluation">
+    <h4>📌 Evaluation</h4>
+    <p>
+      The dashboard highlights unequal city representation across countries. 
+      While larger countries like Turkey and France dominate city counts, smaller nations contribute far fewer cities. 
+      Average latitude comparisons provide additional spatial insights. 
+      Future iterations could integrate demographic or economic data to enrich the context.
+    </p>
+  </div>
+
+  <div class="card-cta">
+    <a href="https://github.com/Aarongho/Portofolio-Projects/tree/main/Visualization/Tableu%20Project/European%20City%20Analysis" 
+       class="btn" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+    <a href="https://public.tableau.com/app/profile/aaron.gho4833/viz/InteractiveEurope_17265684288630/Dashboard1" 
+       class="btn" target="_blank" rel="noopener noreferrer">View on Tableau</a>
+  </div>
+</div>
+<!-- END PROJECT CARD -->
+
+
+
+    </div>
+  </section>
+  <iframe src="music.html" style="display:none;"></iframe>
+  
+  <script src="script-global.js"></script>
+  <script src="script-navbar.js"></script>
+  <script src="page5.1.js"></script>
+
+
+</body>
+</html>
