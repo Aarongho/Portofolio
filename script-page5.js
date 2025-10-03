@@ -127,8 +127,47 @@ const returnGlobe = document.getElementById("return-globe");
 
 
 
+// ==================== RANDOM VIEW (dengan spin + zoom) ====================
+viewRandom.addEventListener("click", () => {
+  let spinSpeed = 20; // kecepatan awal
+  let spinDecay = 0.95; // melambat
+  let spinAnim;
 
-// ==================== RANDOM VIEW ====================
+  function spinFast() {
+    angleY += spinSpeed;
+    orbit.style.transform = `rotateY(${angleY}deg) scale(1)`;
+    spinSpeed *= spinDecay;
+
+    if (spinSpeed > 0.5) {
+      spinAnim = requestAnimationFrame(spinFast);
+    } else {
+      cancelAnimationFrame(spinAnim);
+
+      // zoom out globe
+      orbit.style.transition = "transform 0.6s ease";
+      orbit.style.transform = `scale(0.3) rotateY(${angleY}deg)`;
+
+      setTimeout(() => {
+        // hide globe → show random card
+        orbit.classList.add("hide");
+        orbit.classList.remove("show");
+
+        pickRandomCert(); // generate kartu random
+
+        randomView.style.display = "flex";
+        setTimeout(() => randomView.classList.add("show"), 10);
+
+        // reset globe biar balik normal setelah animasi
+        orbit.style.transition = "";
+        orbit.style.transform = `rotateY(${angleY}deg) scale(1)`;
+      }, 600);
+    }
+  }
+
+  spinFast();
+});
+
+// ==================== RANDOM CERTIFICATE ====================
 function pickRandomCert() {
   const pick = certificatesData[Math.floor(Math.random() * certificatesData.length)];
   randomCert.innerHTML = `
@@ -143,16 +182,10 @@ function pickRandomCert() {
   `;
 }
 
-viewRandom.addEventListener("click", () => {
-  orbit.classList.add("hide");
-  orbit.classList.remove("show");
-  pickRandomCert();
-  randomView.style.display = "flex";
-  setTimeout(() => randomView.classList.add("show"), 10);
-});
-
+// tombol Pick Again → hanya ganti isi card
 pickAgain.addEventListener("click", pickRandomCert);
 
+// tombol Back → tutup random view, balik ke globe
 backRandom.addEventListener("click", () => {
   randomView.classList.remove("show");
   setTimeout(() => {
@@ -162,31 +195,63 @@ backRandom.addEventListener("click", () => {
   }, 400);
 });
 
-// ==================== ALL VIEW ====================
+
+// ==================== ALL VIEW (dengan explosion) ====================
 viewAll.addEventListener("click", () => {
-  orbit.classList.add("hide");
-  orbit.classList.remove("show");
-  allContainer.innerHTML = "";
-  certificatesData.forEach(cert => {
-    allContainer.innerHTML += `
-      <div class="cert-card">
-        <h2>${cert.title}</h2>
-        <h4 style="color:cyan">${cert.type}</h4>
-        <div class="img-wrapper">
-          <img src="${cert.img}" alt="${cert.title}">
-        </div>
-        <p>${cert.desc}</p>
-      </div>`;
+  const certs = orbit.querySelectorAll(".certificate");
+
+  // explosion animasi
+  certs.forEach((item, i) => {
+    const angle = (360 / total) * i;
+    const distance = 500;
+    item.style.transition = "transform 0.8s ease, opacity 0.8s ease";
+    
+    const randX = (Math.random() - 0.5) * 2000; 
+    const randY = (Math.random() - 0.5) * 1200; 
+    const randZ = (Math.random() - 0.5) * 2000; 
+
+    setTimeout(() => {
+      item.style.transform = `translate3d(${randX}px, ${randY}px, ${randZ}px) rotate(${Math.random()*360}deg)`;
+      item.style.opacity = 0;
+    }, 50);
   });
-  allView.style.display = "flex";
-  setTimeout(() => allView.classList.add("show"), 10);
+
+  // setelah explosion selesai, tampilkan All View
+  setTimeout(() => {
+    orbit.classList.add("hide");
+    allContainer.innerHTML = "";
+    certificatesData.forEach(cert => {
+      allContainer.innerHTML += `
+        <div class="cert-card">
+          <h2>${cert.title}</h2>
+          <h4 style="color:cyan">${cert.type}</h4>
+          <div class="img-wrapper">
+            <img src="${cert.img}" alt="${cert.title}">
+          </div>
+          <p>${cert.desc}</p>
+        </div>`;
+    });
+    allView.style.display = "flex";
+    setTimeout(() => allView.classList.add("show"), 10);
+  }, 900);
 });
 
 returnGlobe.addEventListener("click", () => {
   allView.classList.remove("show");
   setTimeout(() => {
     allView.style.display = "none";
+    items.forEach((item, i) => {
+      const angle = (360 / total) * i;
+      const distance = 500;
+      item.style.transition = "transform 0.8s ease, opacity 0.8s ease";
+      item.style.transform = `rotateY(${angle}deg) translateZ(${distance}px)`;
+      item.style.opacity = 1;
+    });
     orbit.classList.add("show");
     orbit.classList.remove("hide");
   }, 400);
 });
+
+
+
+

@@ -8,6 +8,8 @@
   z-index: -1;
 }
 
+
+
 /* grid hologram scanline */
 .certificate-section::before {
   content: "";
@@ -67,9 +69,10 @@ html, body {
   margin: -75px 0 0 -110px;
   border-radius: 10px;
   overflow: hidden;
-  background: rgba(0,255,255,0.1);
-  border: 1px solid rgba(0,255,255,0.5);
-  box-shadow: 0 0 15px cyan, 0 0 30px rgba(0,255,255,0.5) inset;
+  background: rgba(120, 0, 255, 0.08); /* light default */
+  border: 1px solid rgba(120, 0, 255, 0.5);
+  box-shadow: 0 0 20px rgba(120,0,255,0.7),
+              0 0 40px rgba(120,0,255,0.3) inset;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 .certificate img {
@@ -237,9 +240,6 @@ button:hover {
 }
 
 /* === DARK MODE === */
-body.dark-mode .certificate-section {
-  background: transparent; /* biar grid keliatan */
-}
 body.dark-mode .certificate {
   background: rgba(0, 255, 255, 0.08);
   border: 1px solid rgba(0, 255, 255, 0.6);
@@ -250,28 +250,12 @@ body.dark-mode #hologram-canvas {
   background: #000;
 }
 
-/* === LIGHT MODE === */
-body.light-mode .certificate-section {
-  background: transparent;
-}
-body.light-mode .certificate {
-  background: rgba(120, 0, 255, 0.08);
-  border: 1px solid rgba(120, 0, 255, 0.5);
-  box-shadow: 0 0 20px rgba(120,0,255,0.7),
-              0 0 40px rgba(120,0,255,0.3) inset;
-}
-body.light-mode #hologram-canvas {
+/* === LIGHT MODE DEFAULT (tanpa class) === */
+#hologram-canvas {
   background: #f5f5f5;
 }
 
-.global-header {
-  position: absolute !important; /* override dari fixed */
-  top: 20px;
-  right: 90px;
-  z-index: 99; 
-  align-items: center;
-}
-
+/* ==================== TITLE & SUBTITLE ==================== */
 .cert-title {
   text-align: center;
   margin-top: 60px;
@@ -279,35 +263,153 @@ body.light-mode #hologram-canvas {
   font-family: 'Orbitron', sans-serif;
 }
 
-.cert-title h1 {
+.certificate-title {
   font-size: 48px;
-  font-weight: bold;
-  color: #00f8e0;
-  text-shadow: 0 0 15px cyan, 0 0 30px rgba(0,255,255,0.5);
-  margin-bottom: 10px;
-}
-
-.cert-title p {
-  font-size: 18px;
-  color: #ccc;
-}
-
-.toggle-center {
+  font-weight: 900;
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  font-family: 'Orbitron', sans-serif;
+  position: relative;
+  z-index: 2000;
+  color: #111; /* light default */
+  text-shadow: 
+    0 0 6px #111,
+    0 0 12px rgba(0,0,0,0.8),
+    0 0 24px rgba(0,0,0,0.6);
 }
 
-.toggle-center button {
-  background: transparent;
-  border: 2px solid cyan;
-  color: cyan;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
+.certificate-subtitle {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 40px;
   font-family: 'Orbitron', sans-serif;
-  box-shadow: 0 0 10px cyan, 0 0 20px rgba(0,255,255,0.6) inset;
+  position: relative;
+  z-index: 2000;
+  color: #333;
+  text-shadow: 
+    0 0 4px #111,
+    0 0 10px rgba(0,0,0,0.6);
 }
-.toggle-center button:hover {
-  background: cyan;
-  color: black;
+
+/* DARK MODE TITLE */
+body.dark-mode .certificate-title {
+  color: #0ff;
+  text-shadow: 
+    0 0 6px #0ff,
+    0 0 12px #0ff,
+    0 0 24px rgba(0,255,255,0.8);
 }
+body.dark-mode .certificate-subtitle {
+  color: rgba(255,255,255,0.7);
+  text-shadow: 
+    0 0 4px #0ff,
+    0 0 12px rgba(0,255,255,0.6);
+}
+
+/* Biar global-header tetap di pojok kanan atas di page5 */
+.global-header {
+  position: absolute !important; /* override absolute */
+  top: 20px;
+  right: 90px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+}
+
+
+
+
+/* ================= MOBILE RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .certificate-title { font-size: 32px; }
+  .certificate-subtitle { font-size: 14px; }
+
+  .certificate {
+    width: 140px;
+    height: 100px;
+    margin: -50px 0 0 -70px;
+  }
+
+  .random-card {
+    width: 90%;
+    padding: 15px;
+    font-size: 14px;
+  }
+  .random-card img {
+    max-height: 40vh;
+  }
+
+  .all-container .cert-card {
+    width: 90%;
+    padding: 15px;
+  }
+  .all-container .cert-card .img-wrapper {
+    height: 150px;
+  }
+
+  button {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+}
+
+
+/* === MOBILE THEME TOGGLE === */
+@media (max-width: 768px) {
+  /* Sembunyikan label text */
+  .toggle-slider .label-text {
+    display: none !important;
+  }
+
+  /* Sembunyikan slider background */
+  .toggle-slider {
+    background: none !important;
+    border: none !important;
+    width: auto !important;
+    height: auto !important;
+    padding: 0;
+  }
+
+  /* Knob jadi tombol bulat */
+  .toggle-slider .knob {
+    position: static !important;
+    transform: none !important;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  /* === Dark Mode Knob === */
+  body.dark-mode .toggle-slider .knob {
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #0ff;
+    box-shadow: 0 0 10px #0ff;
+  }
+  body.dark-mode .toggle-slider .knob span.icon {
+    color: #0ff;
+  }
+
+  /* === Light Mode Knob === */
+  body:not(.dark-mode) .toggle-slider .knob {
+    background: #fff;
+    border: 2px solid #000;
+    box-shadow: 0 0 10px #000;
+  }
+  body:not(.dark-mode) .toggle-slider .knob span.icon {
+    color: #000;
+  }
+
+  /* Hover effect */
+  .toggle-slider .knob:hover {
+    transform: scale(1.1);
+  }
+}
+
+
+
