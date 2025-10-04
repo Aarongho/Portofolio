@@ -205,6 +205,61 @@ p {
   animation: spark-move 2s linear infinite;
 }
 
+/* ===========================================
+   🌤 LIGHT MODE FIX FOR CONTACT PAGE TITLES
+   =========================================== */
+/* =======================================================
+   🌤 UNIVERSAL LIGHT MODE FIX (tanpa ubah JS/HTML)
+   ======================================================= */
+
+/* Jika bukan dark mode (berarti light mode aktif) */
+body:not(.dark-mode) h1 {
+  color: #000 !important;
+  text-shadow:
+    0 0 8px #fff,
+    0 0 16px #fff,
+    0 0 25px rgba(255,255,255,0.8) !important;
+  animation: none !important;
+}
+
+body:not(.dark-mode) p {
+  color: #333 !important;
+  text-shadow:
+    0 0 6px #fff,
+    0 0 12px rgba(255,255,255,0.7) !important;
+}
+
+
+
+/* === MOBILE CENTER FIX FOR CONTACT BOX === */
+@media (max-width: 768px) {
+  .contact-box {
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .contact-text {
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .contact-text span,
+  .contact-text small {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+
+  /* biar ikon juga ikut center */
+  .contact-box img {
+    margin: 0 auto;
+    display: block;
+  }
+}
+
+
 @keyframes spark-move {
   from { transform: translate(0, 0); }
   to   { transform: translate(25px, 25px); } /* percikan jalan lebih jauh */
