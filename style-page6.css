@@ -18,6 +18,13 @@ html, body {
   pointer-events: none;
 }
 
+/* ============================================================
+   🌗 LIGHT MODE NAVBAR DIVIDER — BLACK NEON EFFECT
+   ============================================================ */
+body:not(.dark-mode) .navbar-divider {
+  background: linear-gradient(90deg, #000, #000);
+  box-shadow: 0 0 10px #000, 0 0 20px rgba(0,0,0,0.6);
+}
 
 /* Divider full width */
 .navbar-divider {
