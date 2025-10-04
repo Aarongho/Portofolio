@@ -15,6 +15,26 @@ html, body {
   overflow: hidden;
 }
 
+/* ===============================
+   💥 BRICK SHATTER CLICK EFFECT
+   =============================== */
+
+.shatter span {
+  display: inline-block;
+  position: relative;
+  transition: transform 0.6s ease, opacity 0.8s ease;
+}
+
+/* Animasi potongan batu jatuh */
+.shatter span.fall {
+  opacity: 0;
+  transform: translate(
+    calc(var(--x) * 1px),
+    calc(var(--y) * 1px)
+  ) rotate(calc(var(--r) * 1deg)) scale(0.8);
+  transition: transform 0.8s ease-out, opacity 1s ease-out;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -159,4 +179,68 @@ body:not(.dark-mode) p {
   55% { clip: rect(70px, 900px, 100px, 0); }
   75% { clip: rect(40px, 900px, 80px, 0); }
   100% { clip: rect(0, 900px, 0, 0); }
+}
+
+/* ===================================================
+   📱 MOBILE DARK MODE TOGGLE -> SINGLE BUTTON STYLE
+   =================================================== */
+@media (max-width: 768px) {
+  /* Sembunyikan label text */
+  .toggle-slider .label-text {
+    display: none !important;
+  }
+
+  /* Hapus background toggle bar */
+  .toggle-slider {
+    background: none !important;
+    border: none !important;
+    width: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+  }
+
+  /* Jadikan knob tombol bulat besar */
+  .toggle-slider .knob {
+    position: static !important;
+    transform: none !important;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  /* 🌙 Dark mode button style */
+  body.dark-mode .toggle-slider .knob {
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #0ff;
+    box-shadow: 0 0 8px #0ff, inset 0 0 6px rgba(0,255,255,0.6);
+  }
+
+  body.dark-mode .toggle-slider .knob span.icon {
+    color: #0ff;
+    font-size: 20px;
+    content: '🌙';
+  }
+
+  /* ☀️ Light mode button style */
+  body:not(.dark-mode) .toggle-slider .knob {
+    background: #fff;
+    border: 2px solid #000;
+    box-shadow: 0 0 8px #000, inset 0 0 5px rgba(0,0,0,0.3);
+  }
+
+  body:not(.dark-mode) .toggle-slider .knob span.icon {
+    color: #000;
+    font-size: 20px;
+    content: '☀️';
+  }
+
+  /* Efek hover */
+  .toggle-slider .knob:hover {
+    transform: scale(1.15);
+  }
 }
