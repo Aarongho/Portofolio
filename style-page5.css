@@ -86,22 +86,43 @@ html, body {
 }
 
 /* ==================== BUTTON STYLE ==================== */
+/* ==================== BUTTON STYLE ==================== */
 button {
-  background: rgba(0,255,255,0.1);
-  border: 1px solid cyan;
-  color: cyan;
   font-family: 'Orbitron', sans-serif;
   padding: 10px 18px;
   border-radius: 8px;
   cursor: pointer;
-  box-shadow: 0 0 10px cyan, 0 0 20px rgba(0,255,255,0.6) inset;
   transition: all 0.3s ease;
 }
-button:hover {
+
+/* ==== DARK MODE ==== */
+body.dark-mode button {
+  background: rgba(0,255,255,0.1);
+  border: 1px solid cyan;
+  color: cyan;
+  box-shadow: 0 0 10px cyan, 0 0 20px rgba(0,255,255,0.6) inset;
+}
+body.dark-mode button:hover {
   background: cyan;
   color: black;
   box-shadow: 0 0 15px cyan, 0 0 30px cyan;
 }
+
+/* ==== LIGHT MODE ==== */
+button {
+  background: rgba(0,0,0,0.05);
+  border: 1px solid black;
+  color: black;
+  box-shadow: 0 0 10px black, 0 0 20px rgba(0,0,0,0.4) inset;
+}
+button:hover {
+  background: black;
+  color: white;
+  box-shadow: 0 0 15px black, 0 0 30px black;
+}
+
+
+
 
 /* posisi button */
 .controls-top {
