@@ -446,3 +446,17 @@ window.addEventListener("DOMContentLoaded", () => {
   displayGradient = { ...targetGradient };
 });
 
+// === DOWNLOAD CV FUNCTIONALITY ===
+document.addEventListener("DOMContentLoaded", () => {
+  const cvBtn = document.querySelector(".cv-btn");
+  if (cvBtn) {
+    cvBtn.addEventListener("click", () => {
+      const link = document.createElement("a");
+      link.href = "image/Aaron_Winston_Gho_Resume.pdf"; // arahkan ke folder image
+      link.download = "Aaron_Winston_Gho_Resume.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+  }
+});
