@@ -39,7 +39,7 @@ window.addEventListener('beforeunload', () => {
 });
 
 /* ============================================================
-   ⚡ DIGITAL QUAKE - PETIR SAAT BATU JATUH
+   ⚡ DIGITAL QUAKE - PETIR SAAT BATU JATUH (CLEAN BACKGROUND)
    ============================================================ */
 (function(){
   const canvas = document.createElement('canvas');
@@ -54,7 +54,9 @@ window.addEventListener('beforeunload', () => {
   document.body.appendChild(canvas);
 
   const ctx = canvas.getContext('2d');
+  ctx.globalAlpha = 0.95;
   let W, H, DPR = window.devicePixelRatio || 1;
+
   function resize() {
     W = window.innerWidth;
     H = window.innerHeight;
@@ -121,22 +123,26 @@ window.addEventListener('beforeunload', () => {
     return segments;
   }
 
-  // Loop tiap 10 detik
+  // Batu jatuh tiap 10 detik
   setInterval(() => spawnRocks(50), 10000);
 
   function loop() {
     requestAnimationFrame(loop);
-    ctx.fillStyle = "#000";
+
+    // 🌗 Background clean theme switch
+    const isDark = document.body.classList.contains('dark-mode');
+    const bgColor = isDark ? "#000000" : "#f5f5f5";
+    ctx.fillStyle = bgColor;
     ctx.fillRect(0, 0, W, H);
 
-    // Tanah
+    // Tanah (sesuai tema)
     const g = ctx.createLinearGradient(0, H - 150, 0, H);
-    g.addColorStop(0, "#111");
-    g.addColorStop(1, "#000");
+    g.addColorStop(0, isDark ? "#111" : "#dcdcdc");
+    g.addColorStop(1, isDark ? "#000" : "#f5f5f5");
     ctx.fillStyle = g;
     ctx.fillRect(0, H - 120, W, 200);
 
-    // Shake
+    // Shake efek
     if (shake > 0) {
       ctx.save();
       ctx.translate((Math.random() - 0.5) * shake, (Math.random() - 0.5) * shake);
@@ -185,7 +191,7 @@ window.addEventListener('beforeunload', () => {
       ctx.fill();
     }
 
-    // Dust
+    // Debu
     for (let i = dusts.length - 1; i >= 0; i--) {
       const d = dusts[i];
       d.vy += 0.1;
@@ -199,7 +205,7 @@ window.addEventListener('beforeunload', () => {
       if (d.a <= 0) dusts.splice(i, 1);
     }
 
-    // Lightning bolts
+    // Petir
     for (let i = bolts.length - 1; i >= 0; i--) {
       const b = bolts[i];
       b.life -= 0.05;
