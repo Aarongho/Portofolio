@@ -1,6 +1,6 @@
 // ==================== DATA SERTIFIKAT ====================
 const certificatesData = [
-  { title: "Fundamentals of Deep Learning", type: "Hard Skill", img: "image/certif11.JPEG", desc: "Achieved NVIDIA certification in deep learning fundamentals, covering neural networks and modern AI applications." },
+  { title: "Fundamentals of Deep Learning", type: "Hard Skill", img: "image/certif11.png", desc: "Achieved NVIDIA certification in deep learning fundamentals, covering neural networks and modern AI applications." },
   { title: "Medical Science Olympiad Participant", type: "Soft Skill", img: "image/certif2.JPEG", desc: "Participated in SoeMO 2022 medical science olympiad, gaining experience in scientific competition and teamwork." },
   { title: "Canadian Team Mathematics Contest", type: "Hard Skill", img: "image/certif3.JPEG", desc: "Represented SMAK Penabur in Canadian Mathematics Contest hosted by University of Waterloo & UNPAR." },
   { title: "Proximity Atlantis Event Organizer", type: "Soft Skill", img: "image/certif4.JPEG", desc: "Organized Proximity Atlantis 2021 digital design competition, strengthening leadership and event management." },
