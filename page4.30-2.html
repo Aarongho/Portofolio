@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Automated Claim Reporting - Power BI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style-global.css">
+  <link rel="stylesheet" href="style-navbar.css">
+  <link rel="stylesheet" href="page5.1.css">
+</head>
+
+
+<body>
+    <canvas id="matrix-canvas"></canvas>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="page4.html" class="back-btn-box">← Back</a>
+        </div>
+
+        <div div class="global-header">
+            <button id="mute-btn" class="header-btn">🔊</button>
+            <div class="toggle-container">
+            <input type="checkbox" id="theme-toggle">
+            <label for="theme-toggle" class="toggle-slider">
+                <span class="label-text">Light Mode</span>
+                <div class="knob"><span class="icon">☀️</span></div>
+            </label>
+            </div>
+        </div>
+    </nav>
+
+    <hr class="navbar-divider"/>
+
+
+
+
+  <section class="portfolio">
+    <h1 class="portfolio-title">Project Showcase</h1>
+    <p class="portfolio-subtitle">Highlight of my featured works</p>
+
+    <div class="portfolio-grid">
+<!-- PROJECT CARD -->
+<div class="project-card">
+
+  <div class="card-header">
+    <h3>Automating Health Claim Reports</h3>
+  </div>
+  <div class="card-meta">
+    <span class="cat-pill">Data Visualization / Power BI</span>
+    <span class="year-pill">2026</span>
+  </div>
+
+  <p class="card-desc">
+    Built during my Enrichment Program internship as a Data Analyst in the Health Claims unit at
+    PT Asuransi Astra Buana. The monthly corporate health claim report used to be assembled by hand in
+    Excel every cycle. I rebuilt it as a single refreshable Power BI model end to end: I write the SQL
+    to pull the claim records straight from the database, Power Query handles the cleaning and
+    provider-name standardisation, DAX handles every comparison and ranking, and the report
+    regenerates itself on refresh instead of being rebuilt from scratch each month.
+  </p>
+
+  <!-- SLIDER -->
+  <div class="slider">
+    <div class="slides">
+      <img src="image/87.jpg" alt="Provider-level YoY matrix with conditional formatting">
+      <img src="image/88.jpg" alt="Dynamic Top-N diagnosis ranking with Others and Grand Total">
+      <img src="image/89.jpg" alt="Settled vs Treatment Finish claim triangulation matrix">
+      <img src="image/90.jpg" alt="Treatment Finish vs Settled Lag claim trend">
+    </div>
+    <button class="prev">❮</button>
+    <button class="next">❯</button>
+  </div>
+
+  <p class="card-desc">
+    <em>Note: all screenshots are intentionally blurred on provider names and monetary values.
+    The underlying data is confidential client data, so only the report structure and the measure
+    logic are shown.</em>
+  </p>
+
+  <div class="info-boxes">
+    <div class="info-box">
+      <h4>⚙️ What I Built</h4>
+      <ul>
+        <li>SQL queries that pull the claim records from the database — joining claim, member, provider and diagnosis tables, filtering by treatment and settled dates, and aggregating before the data ever reaches Power BI</li>
+        <li>Provider-level matrix comparing Amount, Quantity and CPC against the same period last year, with red/amber/green rules driven by DAX</li>
+        <li>Dynamic Top-N diagnosis ranking (5–30) that keeps an accurate "Others" row and Grand Total at any N</li>
+        <li>Claim triangulation matrix (Settled Month vs Treatment Finish Month) to expose the run-off pattern</li>
+        <li>Trend chart separating Treatment Finish from Settled Lag to size the reporting delay</li>
+        <li>Disconnected "Kolom Summary" table so column headers and measures switch from one slicer</li>
+      </ul>
+    </div>
+    <div class="info-box">
+      <h4>🛠 Tech Stack</h4>
+      <ul>
+        <li>SQL — joins, date filtering and aggregation to extract claim data from the database</li>
+        <li>Power BI Desktop &amp; Power BI Service</li>
+        <li>DAX — time intelligence, RANKX, dynamic measure switching</li>
+        <li>Power Query (M) — ETL, cleaning, provider name standardisation</li>
+        <li>Excel for supporting mapping tables</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="evaluation">
+    <h4>📌 Impact</h4>
+    <p>
+      The report went from a manual Excel rebuild every cycle to a one-click refresh, which cut the
+      preparation time dramatically and removed the copy-paste errors that came with it. More
+      importantly it changed what the team could ask: because CPC, quantity and amount now move
+      together on the same page, the unit can tell whether a cost increase came from more claims or
+      from more expensive claims, and whether it sits with a particular provider or a particular
+      diagnosis. The triangulation matrix also made settlement lag visible for the first time, which
+      matters when you are reading a month that is not fully developed yet.
+    </p>
+  </div>
+
+  <div class="evaluation">
+    <h4>🎯 What I Learned</h4>
+    <p>
+      The hard part was never the visuals — it was making the measures behave correctly when the user
+      changes the filter context. Getting Top-N, "Others" and Grand Total to stay consistent, and
+      getting period comparisons to hold up against incomplete months, taught me far more about
+      filter context and evaluation order than any tutorial did. I also learned how much of analytics
+      work is actually data cleaning: standardising provider names alone decided whether the whole
+      YoY comparison was trustworthy. Writing the extraction in SQL rather than pulling raw tables
+      taught me to push filtering and aggregation as far upstream as possible — the model got
+      noticeably lighter and refreshes faster once the heavy work happened in the query.
+    </p>
+  </div>
+
+  <div class="card-cta">
+    <span class="btn">Internal Project — PT Asuransi Astra Buana</span>
+  </div>
+</div>
+<!-- END PROJECT CARD -->
+
+
+
+
+    </div>
+  </section>
+  <iframe src="music.html" style="display:none;"></iframe>
+
+  <script src="script-global.js"></script>
+  <script src="script-navbar.js"></script>
+  <script src="page5.1.js"></script>
+
+
+</body>
+</html>
