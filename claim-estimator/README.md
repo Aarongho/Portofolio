@@ -6,9 +6,9 @@ Website statis untuk mengestimasi amount klaim rawat inap cashless dari diagnosi
 - `index.html` — tampilan dan form input
 - `model.js` — preprocessing + inference XGBoost di browser
 - `export_web_model.py` — script untuk membuat `model.json` dari notebook Step 6
-- `model.json` — **belum ada**, dibuat dari model all-client (lihat langkah di bawah)
+- `model.json` — model regression all-client (153.874 klaim rawat inap, data sampai 09/2026, inflasi medis 7,2%/tahun)
 
-## Cara membuat & memasang model.json
+## Cara memperbarui model.json
 1. Jalankan notebook Step 6 (regression + inflasi) sampai selesai.
 2. Taruh `export_web_model.py` di folder notebook, lalu di cell terakhir jalankan:
    ```
