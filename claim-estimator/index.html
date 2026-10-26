@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estimasi Biaya Klaim Rawat Inap</title>
+<meta name="description" content="Estimasi amount klaim rawat inap cashless dari diagnosis, tindakan, lama rawat, kelas kamar, dan rumah sakit.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F3F6F8; --surface:#FFFFFF; --ink:#1D2B3A; --ink-2:#4A5B6C; --ink-3:#7A8A99;
+  --line:#D8E0E6; --field:#F8FAFB; --focus:#2F6FA8;
+  --murah:#5E9273; --menengah:#C0912B; --mahal:#8A3557;
+  --murah-bg:#E3EFE7; --menengah-bg:#F6ECD5; --mahal-bg:#F2DFE7;
+  --accent:var(--ink);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#141B22; --surface:#1B242D; --ink:#E6ECF1; --ink-2:#B3C0CB; --ink-3:#8494A3;
+    --line:#2D3A46; --field:#212C36; --focus:#7FB2E5;
+    --murah:#7DB592; --menengah:#DDB052; --mahal:#C77399;
+    --murah-bg:#22352A; --menengah-bg:#3A3120; --mahal-bg:#3A2330;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141B22; --surface:#1B242D; --ink:#E6ECF1; --ink-2:#B3C0CB; --ink-3:#8494A3;
+  --line:#2D3A46; --field:#212C36; --focus:#7FB2E5;
+  --murah:#7DB592; --menengah:#DDB052; --mahal:#C77399;
+  --murah-bg:#22352A; --menengah-bg:#3A3120; --mahal-bg:#3A2330;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.55 "Public Sans",system-ui,sans-serif;
+  font-variant-numeric:tabular-nums}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 16px 64px}
+header.top{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+h1{font-size:28px;line-height:1.15;font-weight:800;letter-spacing:-.015em;margin:0;max-width:22ch}
+.lede{margin:6px 0 0;color:var(--ink-2);max-width:62ch}
+.model-meta{color:var(--ink-3);font-size:13px;text-align:right;max-width:34ch}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:22px;align-items:start}
+@media (max-width:920px){.grid{grid-template-columns:1fr}}
+
+form{display:grid;gap:16px}
+fieldset{margin:0;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:18px 18px 8px}
+legend{font-weight:700;font-size:16px;padding:0 6px;margin-left:-6px}
+.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 14px;margin-bottom:12px}
+.row.one{grid-template-columns:1fr}
+.row.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:560px){.row,.row.three{grid-template-columns:1fr}}
+label{display:block;font-weight:600;font-size:13.5px;margin-bottom:5px}
+.hint{display:block;font-weight:400;color:var(--ink-3);font-size:12.5px;margin-top:4px;min-height:1em}
+.hint.warn{color:var(--mahal)}
+input[type=text],input[type=number],input[type=date],select{
+  width:100%;font:inherit;color:var(--ink);background:var(--field);border:1px solid var(--line);
+  border-radius:7px;padding:9px 11px;min-height:40px}
+input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+.seg{display:flex;border:1px solid var(--line);border-radius:7px;overflow:hidden;background:var(--field)}
+.seg label{flex:1;margin:0;text-align:center;font-weight:500;padding:9px 6px;cursor:pointer;border-right:1px solid var(--line)}
+.seg label:last-child{border-right:0}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg input:checked+span{font-weight:700}
+.seg label:has(input:checked){background:var(--surface);box-shadow:inset 0 -3px 0 var(--ink)}
+.seg label:has(input:focus-visible){outline:2px solid var(--focus);outline-offset:-2px}
+.check{display:flex;align-items:center;gap:8px;font-weight:500;min-height:40px;margin:0}
+.check input{width:18px;height:18px;accent-color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--field);border:1px solid var(--line);
+  border-radius:999px;padding:3px 4px 3px 11px;font-size:13px}
+.chip button{border:0;background:transparent;color:var(--ink-3);font-size:16px;line-height:1;cursor:pointer;
+  width:24px;height:24px;border-radius:50%}
+.chip button:hover{background:var(--line);color:var(--ink)}
+.addrow{display:flex;gap:8px}
+.addrow input{flex:1}
+.btn{font:inherit;font-weight:600;border:1px solid var(--line);background:var(--surface);color:var(--ink);
+  border-radius:7px;padding:8px 13px;cursor:pointer;min-height:40px;white-space:nowrap}
+.btn:hover{border-color:var(--ink-3)}
+.suggest{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.suggest button{font:inherit;font-size:12.5px;border:1px dashed var(--line);background:transparent;color:var(--ink-2);
+  border-radius:6px;padding:3px 8px;cursor:pointer}
+.suggest button:hover{border-style:solid;color:var(--ink)}
+details.more{border-top:1px solid var(--line);padding:10px 0 4px;margin-top:4px}
+details.more summary{cursor:pointer;font-weight:600;font-size:13.5px;color:var(--ink-2);margin-bottom:10px}
+
+/* hasil */
+aside{position:sticky;top:16px}
+@media (max-width:920px){aside{position:static}}
+.slip{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.slip-head{padding:18px 20px 16px;border-top:6px solid var(--accent);transition:border-color .25s}
+.slip-head h2{font-size:14px;font-weight:600;color:var(--ink-2);margin:0 0 4px}
+.amount{font-size:40px;line-height:1.05;font-weight:800;letter-spacing:-.02em;margin:0}
+.amount small{font-size:18px;font-weight:600;color:var(--ink-2);margin-right:4px;letter-spacing:0}
+.range{color:var(--ink-2);margin:8px 0 0}
+.range strong{color:var(--ink);font-weight:700}
+.scale{padding:6px 20px 18px}
+.bar{position:relative;height:46px;margin:22px 0 8px}
+.band{position:absolute;top:14px;height:18px}
+.band.b1{background:var(--murah-bg)} .band.b2{background:var(--menengah-bg)} .band.b3{background:var(--mahal-bg)}
+.band.b1{border-radius:4px 0 0 4px} .band.b3{border-radius:0 4px 4px 0}
+.tick{position:absolute;top:8px;bottom:8px;width:0;border-left:1.5px dashed var(--ink-3)}
+.tick span{position:absolute;top:-20px;transform:translateX(-50%);font-size:11.5px;color:var(--ink-3);white-space:nowrap}
+.pi{position:absolute;top:19px;height:8px;border-radius:4px;background:var(--accent);opacity:.35;transition:left .25s,width .25s}
+.pin{position:absolute;top:10px;width:4px;height:26px;margin-left:-2px;border-radius:2px;background:var(--accent);
+  transition:left .25s,background .25s}
+.axis{display:flex;justify-content:space-between;font-size:11.5px;color:var(--ink-3)}
+.legend{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:12px;font-size:12.5px}
+.legend div{padding:6px 8px;border-radius:6px;line-height:1.3}
+.legend .l1{background:var(--murah-bg)} .legend .l2{background:var(--menengah-bg)} .legend .l3{background:var(--mahal-bg)}
+.legend b{display:block;font-size:13px}
+.legend .on{outline:2px solid var(--accent)}
+.facts{border-top:1px solid var(--line);padding:14px 20px 16px;display:grid;gap:10px}
+.fact{display:grid;grid-template-columns:130px 1fr;gap:10px;font-size:13.5px}
+.fact dt{color:var(--ink-3)} .fact dd{margin:0}
+.note{font-size:12.5px;color:var(--ink-3);padding:12px 20px 16px;border-top:1px solid var(--line);margin:0}
+.flag{margin:12px 20px 0;padding:9px 11px;border-radius:7px;background:var(--mahal-bg);font-size:13px;display:none}
+.flag.show{display:block}
+.state{padding:40px 20px;text-align:center;color:var(--ink-2)}
+.theme{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);
+  border-radius:7px;padding:5px 10px;cursor:pointer;margin-top:6px}
+.mini{display:none}
+@media (max-width:920px){
+  .mini{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:5;align-items:center;justify-content:space-between;gap:12px;
+    padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:var(--surface);border-top:4px solid var(--accent);
+    font:inherit;color:var(--ink);border-left:0;border-right:0;border-bottom:0;width:100%;text-align:left;cursor:pointer}
+  .mini b{font-size:20px;font-weight:800}
+  .mini span{font-size:13px;color:var(--ink-2)}
+  .wrap{padding-bottom:96px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Estimasi biaya klaim rawat inap</h1>
+      <p class="lede">Isi detail kasus untuk melihat perkiraan amount klaim cashless, rentang wajarnya, dan level approval yang dibutuhkan.</p>
+    </div>
+    <div class="model-meta" id="modelMeta">Memuat model…<br><button class="theme" id="themeBtn" type="button">Ganti tema</button></div>
+  </header>
+
+  <div class="grid">
+    <form id="f" autocomplete="off" onsubmit="return false">
+      <fieldset>
+        <legend>Diagnosis & tindakan</legend>
+        <div class="row one">
+          <div>
+            <label for="dx">Diagnosis utama</label>
+            <input type="text" id="dx" list="dl-dx" placeholder="Ketik untuk mencari, mis. TYPHOID FEVER">
+            <span class="hint" id="dx-hint"></span>
+          </div>
+        </div>
+        <div class="row one">
+          <div>
+            <label for="tx">Tindakan utama</label>
+            <input type="text" id="tx" list="dl-tx" placeholder="Kosongkan jika konservatif">
+            <div class="suggest" id="tx-suggest"></div>
+            <span class="hint" id="tx-hint"></span>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label>Kategori tindakan</label>
+            <div class="seg" role="radiogroup" aria-label="Kategori tindakan">
+              <label><input type="radio" name="op" value="0" checked><span>Non operatif</span></label>
+              <label><input type="radio" name="op" value="1"><span>Operatif</span></label>
+            </div>
+            <span class="hint">Terisi otomatis dari tindakan, bisa diubah.</span>
+          </div>
+          <div>
+            <label for="spec">Spesialis dokter</label>
+            <input type="text" id="spec" list="dl-spec" placeholder="Terisi otomatis dari diagnosis">
+            <span class="hint" id="spec-hint"></span>
+          </div>
+        </div>
+        <div class="row one">
+          <div>
+            <label for="sdx-in">Diagnosis sekunder</label>
+            <div class="addrow"><input type="text" id="sdx-in" list="dl-sdx" placeholder="Tambah diagnosis sekunder"><button class="btn" type="button" id="sdx-add">Tambah</button></div>
+            <div class="chips" id="sdx-chips"></div>
+            <span class="hint">Yang pertama ditambahkan dianggap diagnosis sekunder utama.</span>
+          </div>
+        </div>
+        <details class="more">
+          <summary>Tindakan sekunder</summary>
+          <div class="row one">
+            <div>
+              <div class="addrow"><input type="text" id="stx-in" list="dl-stx" placeholder="Tambah tindakan sekunder"><button class="btn" type="button" id="stx-add">Tambah</button></div>
+              <div class="chips" id="stx-chips"></div>
+            </div>
+          </div>
+        </details>
+      </fieldset>
+
+      <fieldset>
+        <legend>Perawatan</legend>
+        <div class="row three">
+          <div>
+            <label for="los">Lama rawat (hari)</label>
+            <input type="number" id="los" min="1" max="120" value="3" inputmode="numeric">
+            <span class="hint" id="los-hint"></span>
+          </div>
+          <div>
+            <label for="room">Kelas kamar</label>
+            <select id="room"></select>
+          </div>
+          <div>
+            <label for="date">Tanggal mulai rawat</label>
+            <input type="date" id="date">
+            <span class="hint" id="date-hint"></span>
+          </div>
+        </div>
+        <div class="row">
+          <label class="check"><input type="checkbox" id="icu"> Masuk ICU</label>
+          <label class="check"><input type="checkbox" id="ods"> One day surgery / care</label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Rumah sakit</legend>
+        <div class="row one">
+          <div>
+            <label for="hosp">Nama rumah sakit</label>
+            <input type="text" id="hosp" list="dl-hosp" placeholder="Ketik untuk mencari">
+            <span class="hint" id="hosp-hint"></span>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Pasien</legend>
+        <div class="row three">
+          <div>
+            <label for="age">Umur (tahun)</label>
+            <input type="number" id="age" min="0" max="100" value="30" inputmode="numeric">
+          </div>
+          <div>
+            <label>Jenis kelamin</label>
+            <div class="seg" role="radiogroup" aria-label="Jenis kelamin">
+              <label><input type="radio" name="sex" value="1" checked><span>Laki-laki</span></label>
+              <label><input type="radio" name="sex" value="0"><span>Perempuan</span></label>
+            </div>
+          </div>
+          <div>
+            <label for="mem">Status peserta</label>
+            <select id="mem"></select>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label>Status pernikahan</label>
+            <div class="seg" role="radiogroup" aria-label="Status pernikahan">
+              <label><input type="radio" name="mar" value="1" checked><span>Menikah</span></label>
+              <label><input type="radio" name="mar" value="0"><span>Lajang</span></label>
+            </div>
+          </div>
+          <div>
+            <label for="client">Client</label>
+            <select id="client"></select>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+
+    <aside aria-live="polite" id="hasil">
+      <div class="slip" id="slip">
+        <div class="state" id="state">Memuat model…</div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<button class="mini" id="mini" type="button" hidden><span>Estimasi</span><b id="mini-amt"></b><span id="mini-lvl"></span></button>
+<datalist id="dl-dx"></datalist><datalist id="dl-tx"></datalist><datalist id="dl-sdx"></datalist>
+<datalist id="dl-stx"></datalist><datalist id="dl-hosp"></datalist><datalist id="dl-spec"></datalist>
+
+<script src="model.js"></script>
+<script>
+(function () {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const fmt = n => new Intl.NumberFormat('id-ID', { maximumFractionDigits: 0 }).format(Math.round(n));
+  const jt = n => n >= 1e9 ? (n / 1e9).toLocaleString('id-ID', { maximumFractionDigits: 2 }) + ' M'
+                            : (n / 1e6).toLocaleString('id-ID', { maximumFractionDigits: n < 1e7 ? 1 : 0 }) + ' jt';
+  let M = null, sets = {}, sdx = [], stx = [];
+
+  // tema manual (opsional)
+  try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  $('themeBtn').addEventListener('click', () => {
+    const cur = document.documentElement.dataset.theme ||
+      (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const nxt = cur === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = nxt;
+    try { localStorage.setItem('theme', nxt); } catch (e) {}
+  });
+
+  const APPROVER = [[50e6, 'Officer'], [100e6, 'Section Head'], [200e6, 'Manager'], [300e6, 'Senior Vice President'], [Infinity, 'BOD']];
+  const approver = v => APPROVER.find(a => v <= a[0])[1];
+  const group = v => v <= 50e6 ? 0 : v <= 200e6 ? 1 : 2;
+  const GROUP_NAME = ['Murah', 'Menengah', 'Mahal'];
+  const GROUP_VAR = ['--murah', '--menengah', '--mahal'];
+
+  function fill(dl, opts, limit) {
+    const frag = document.createDocumentFragment();
+    opts.slice(0, limit || opts.length).forEach(([v, n]) => {
+      const o = document.createElement('option'); o.value = v; o.label = n.toLocaleString('id-ID') + ' klaim'; frag.appendChild(o);
+    });
+    $(dl).replaceChildren(frag);
+  }
+  function fillSelect(id, opts, labels, pick) {
+    const s = $(id); s.replaceChildren();
+    opts.forEach(([v]) => { const o = document.createElement('option'); o.value = v; o.textContent = (labels && labels[v]) || v; s.appendChild(o); });
+    if (pick && opts.some(o => o[0] === pick)) s.value = pick;
+  }
+  const radio = name => document.querySelector(`input[name="${name}"]:checked`).value;
+  const setRadio = (name, v) => { const el = document.querySelector(`input[name="${name}"][value="${v}"]`); if (el) el.checked = true; };
+
+  function chipList(arr, box, key) {
+    const el = $(box); el.replaceChildren();
+    arr.forEach((v, i) => {
+      const c = document.createElement('span'); c.className = 'chip'; c.textContent = v;
+      const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', 'Hapus ' + v); b.textContent = '×';
+      b.onclick = () => { arr.splice(i, 1); chipList(arr, box, key); run(); };
+      c.appendChild(b); el.appendChild(c);
+    });
+  }
+  function addChip(inp, arr, box, setKey) {
+    const v = $(inp).value.trim(); if (!v) return;
+    if (!arr.includes(v)) arr.push(v);
+    $(inp).value = ''; chipList(arr, box); run();
+  }
+
+  function dateToT(d) { return d.getFullYear() + (d.getMonth() + 0.5) / 12; }
+
+  function readRaw() {
+    const dx = $('dx').value.trim(), tx = $('tx').value.trim() || 'konservative';
+    const hosp = $('hosp').value.trim();
+    const h = M.hosp_attr[hosp] || {};
+    const d = $('date').value ? new Date($('date').value) : new Date();
+    const age = Number($('age').value) || 0, mem = $('mem').value;
+    return {
+      raw: {
+        LOS: Math.max(1, Number($('los').value) || 1), AgeTreatment: age,
+        NumSecondaryDx: sdx.length, NumSecondaryTx: stx.length,
+        TreatmentMonth: d.getMonth() + 1, TreatmentYear: d.getFullYear(),
+        Gender: Number(radio('sex')), AdaSecondaryDiagnosis: sdx.length ? 1 : 0,
+        PrimaryTreatmentCategory: Number(radio('op')),
+        MembershipType2: (mem.indexOf('CHI') >= 0 && age < 18) ? 0 : 1,
+        'ODS/ODC': $('ods').checked ? 1 : 0, MaritalStatus: Number(radio('mar')),
+        isICU: $('icu').checked ? 1 : 0, AdaSecondaryTx: stx.length ? 1 : 0, isPrePost3: 0,
+        Membership: mem, MappedRoomClass2: $('room').value,
+        ProviderClassification2: h.ProviderClassification2 || 'Unknown',
+        ProviderArea: h.ProviderArea || 'Unknown', ProviderProvince: h.ProviderProvince || 'Unknown',
+        PrimaryDiagnosis2: dx, PrimaryMedicalTreatment: tx,
+        SecondaryDx1: sdx[0] || 'Tidak Ada', SecondaryTx1: stx[0] || 'Tidak Ada',
+        TreatmentPlaceChangeClean2: hosp || 'Unknown', HospitalGroup: h.HospitalGroup || 'Non Group',
+        DoctorSpecialty: $('spec').value.trim() || 'Unknown', ClientName: $('client').value,
+      }, t: dateToT(d), dx, tx, hosp, h
+    };
+  }
+
+  function known(set, v, hintId, emptyMsg, unknownMsg) {
+    const el = $(hintId);
+    if (!v) { el.textContent = emptyMsg || ''; el.classList.remove('warn'); return; }
+    if (set.has(v)) { el.textContent = ''; el.classList.remove('warn'); return; }
+    el.textContent = unknownMsg; el.classList.add('warn');
+  }
+
+  function pos(v) {  // posisi 0..100 pada skala log 1 jt .. 1 M
+    const lo = Math.log(1e6), hi = Math.log(1e9);
+    return Math.max(0, Math.min(100, (Math.log(Math.max(v, 1)) - lo) / (hi - lo) * 100));
+  }
+
+  function render(res, ctx) {
+    const g = group(res.estimate), gHi = group(res.hi);
+    document.documentElement.style.setProperty('--accent', `var(${GROUP_VAR[g]})`);
+    const gs = M.group_stats[ctx.dx + '||' + ctx.tx];
+    const infl = M.meta.inflation_mode !== 'none' ? (Math.exp((ctx.t - M.meta.t_base) * Math.log1p(M.meta.inflation_rate))) : 1;
+    const p50 = pos(50e6), p200 = pos(200e6);
+    $('slip').innerHTML = `
+      <div class="slip-head">
+        <h2>Estimasi amount klaim</h2>
+        <p class="amount"><small>Rp</small>${fmt(res.estimate)}</p>
+        <p class="range">Rentang wajar <strong>Rp ${jt(res.lo)}</strong> sampai <strong>Rp ${jt(res.hi)}</strong></p>
+      </div>
+      <div class="flag ${gHi > g ? 'show' : ''}">Rentang atas masuk kelas ${GROUP_NAME[gHi]}. Klaim seperti ini bisa membutuhkan approval ${approver(res.hi)}.</div>
+      <div class="scale">
+        <div class="bar" aria-hidden="true">
+          <div class="band b1" style="left:0;width:${p50}%"></div>
+          <div class="band b2" style="left:${p50}%;width:${p200 - p50}%"></div>
+          <div class="band b3" style="left:${p200}%;right:0"></div>
+          <div class="tick" style="left:${p50}%"><span>50 jt</span></div>
+          <div class="tick" style="left:${p200}%"><span>200 jt</span></div>
+          <div class="pi" style="left:${pos(res.lo)}%;width:${Math.max(1, pos(res.hi) - pos(res.lo))}%"></div>
+          <div class="pin" style="left:${pos(res.estimate)}%"></div>
+        </div>
+        <div class="axis"><span>1 jt</span><span>10 jt</span><span>100 jt</span><span>1 M</span></div>
+        <div class="legend">
+          <div class="l1 ${g === 0 ? 'on' : ''}"><b>Murah</b>sampai 50 jt</div>
+          <div class="l2 ${g === 1 ? 'on' : ''}"><b>Menengah</b>50–200 jt</div>
+          <div class="l3 ${g === 2 ? 'on' : ''}"><b>Mahal</b>di atas 200 jt</div>
+        </div>
+      </div>
+      <dl class="facts">
+        <div class="fact"><dt>Approval</dt><dd><b>${approver(res.estimate)}</b></dd></div>
+        <div class="fact"><dt>Klaim sejenis</dt><dd>${gs
+          ? `${gs[0].toLocaleString('id-ID')} klaim dengan diagnosis dan tindakan yang sama. Median Rp ${jt(gs[1] * infl)}, separuh klaim di Rp ${jt(gs[2] * infl)} sampai ${jt(gs[3] * infl)}. Median lama rawat ${gs[4]} hari.`
+          : 'Kurang dari 5 klaim dengan diagnosis dan tindakan ini di data, jadi estimasi lebih bergantung pada kasus yang mirip.'}</dd></div>
+        <div class="fact"><dt>Inflasi medis</dt><dd>${(M.meta.inflation_rate * 100).toFixed(1)}% per tahun, sudah dihitung sampai tanggal rawat.</dd></div>
+      </dl>
+      <p class="note" id="note">Estimasi dari model machine learning berdasarkan klaim historis, bukan keputusan klaim. Sekitar 8 dari 10 klaim aktual berada di dalam rentang wajar.</p>`;
+  }
+
+  function mini(res) {
+    const el = $('mini');
+    if (!res) { el.hidden = true; return; }
+    el.hidden = false; $('mini-amt').textContent = 'Rp ' + jt(res.estimate); $('mini-lvl').textContent = approver(res.estimate);
+  }
+
+  function run() {
+    if (!M) return;
+    const ctx = readRaw();
+    known(sets.dx, ctx.dx, 'dx-hint', 'Wajib diisi.', 'Tidak ada di data historis. Estimasi memakai rata-rata semua diagnosis.');
+    known(sets.tx, $('tx').value.trim(), 'tx-hint', 'Kosong berarti konservatif.', 'Tidak ada di data historis. Estimasi memakai rata-rata semua tindakan.');
+    known(sets.hosp, ctx.hosp, 'hosp-hint', 'Kosong berarti rumah sakit tidak diketahui.', 'Tidak ada di data historis. Estimasi memakai rata-rata semua rumah sakit.');
+    if (ctx.hosp && M.hosp_attr[ctx.hosp]) {
+      const h = M.hosp_attr[ctx.hosp];
+      $('hosp-hint').textContent = [h.HospitalGroup !== 'Non Group' ? 'Group ' + h.HospitalGroup : 'Bukan bagian group',
+        h.ProviderProvince, h.ProviderClassification2 !== 'Unknown' ? 'kelas ' + h.ProviderClassification2 : null].filter(Boolean).join(', ');
+    }
+    const gs = M.group_stats[ctx.dx + '||' + ctx.tx];
+    $('los-hint').textContent = gs ? `Median kasus ini ${gs[4]} hari` : '';
+    $('date-hint').textContent = ctx.t > M.meta.t_base + 0.05 ? 'Setelah data terakhir, estimasi diproyeksikan dengan inflasi.' : '';
+    if (!ctx.dx) {
+      $('slip').innerHTML = '<div class="state">Pilih diagnosis utama untuk melihat estimasi.</div>';
+      document.documentElement.style.setProperty('--accent', 'var(--ink)');
+      mini(null);
+      return;
+    }
+    const res = ClaimModel.predict(M, ctx.raw, ctx.t);
+    render(res, ctx); mini(res);
+  }
+
+  function onDx() {
+    const dx = $('dx').value.trim();
+    const box = $('tx-suggest'); box.replaceChildren();
+    (M.dx_tx[dx] || []).forEach(t => {
+      const b = document.createElement('button'); b.type = 'button'; b.textContent = t;
+      b.onclick = () => { $('tx').value = t === 'konservative' ? '' : t; onTx(); };
+      box.appendChild(b);
+    });
+    const sp = M.dx_specialty[dx];
+    if (sp && sp !== 'Unknown') { $('spec').value = sp; $('spec-hint').textContent = 'Paling sering untuk diagnosis ini.'; }
+    run();
+  }
+  function onTx() {
+    const tx = $('tx').value.trim() || 'konservative';
+    if (tx in M.tx_cat) setRadio('op', M.tx_cat[tx]);
+    run();
+  }
+  function onMem() {
+    if ($('mem').value.indexOf('CHI') >= 0) { setRadio('mar', 0); if (Number($('age').value) > 25) $('age').value = 10; }
+    run();
+  }
+
+  async function init() {
+    try {
+      const r = await fetch('model.json', { cache: 'no-cache' });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      M = ClaimModel.prepare(await r.json());
+    } catch (e) {
+      $('state').textContent = 'File model.json tidak bisa dimuat. Pastikan model.json ada di folder yang sama dengan index.html.';
+      $('modelMeta').firstChild.textContent = 'Model belum tersedia';
+      return;
+    }
+    const U = M.ui;
+    sets = { dx: new Set(U.PrimaryDiagnosis2.map(o => o[0])), tx: new Set(U.PrimaryMedicalTreatment.map(o => o[0])),
+             hosp: new Set(U.TreatmentPlaceChangeClean2.map(o => o[0])) };
+    fill('dl-dx', U.PrimaryDiagnosis2); fill('dl-tx', U.PrimaryMedicalTreatment.filter(o => o[0] !== 'konservative'));
+    fill('dl-sdx', U.SecondaryDx1); fill('dl-stx', U.SecondaryTx1);
+    fill('dl-hosp', U.TreatmentPlaceChangeClean2); fill('dl-spec', U.DoctorSpecialty.filter(o => o[0] !== 'Unknown'));
+    const roomOrder = ['KELAS III', 'KELAS II', 'KELAS I', 'VIP', 'Kelas Khusus', 'ISOLASI', 'ODS/ODC', 'Unknown'];
+    const rooms = roomOrder.map(r => U.MappedRoomClass2.find(o => o[0] === r)).filter(Boolean);
+    fillSelect('room', rooms, { 'KELAS III': 'Kelas III', 'KELAS II': 'Kelas II', 'KELAS I': 'Kelas I', 'Kelas Khusus': 'Kelas khusus (ICU/HCU)',
+                                'ISOLASI': 'Isolasi', 'ODS/ODC': 'ODS/ODC', 'Unknown': 'Tidak diketahui' }, 'KELAS II');
+    fillSelect('mem', U.Membership, { '1. EMP': 'Karyawan', '2. SPO': 'Pasangan', '3. CHI': 'Anak' }, '1. EMP');
+    fillSelect('client', U.ClientName, null, U.ClientName[0][0]);
+    if (U.ClientName.length < 2) $('client').closest('div').style.display = 'none';
+
+    const tb = M.meta.t_base, by = Math.floor(tb), bm = Math.round((tb - by) * 12 + 0.5);
+    const today = new Date(); $('date').value = today.toISOString().slice(0, 10);
+    $('modelMeta').firstChild.textContent =
+      `Model dari ${M.meta.n_train.toLocaleString('id-ID')} klaim rawat inap, data sampai ${String(bm).padStart(2, '0')}/${by}.`;
+
+    $('dx').addEventListener('change', onDx); $('dx').addEventListener('input', () => { if (sets.dx.has($('dx').value)) onDx(); else run(); });
+    $('tx').addEventListener('change', onTx); $('tx').addEventListener('input', () => { if (sets.tx.has($('tx').value)) onTx(); else run(); });
+    $('mem').addEventListener('change', onMem);
+    $('mini').onclick = () => $('hasil').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    $('sdx-add').onclick = () => addChip('sdx-in', sdx, 'sdx-chips');
+    $('stx-add').onclick = () => addChip('stx-in', stx, 'stx-chips');
+    $('sdx-in').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); addChip('sdx-in', sdx, 'sdx-chips'); } });
+    $('stx-in').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); addChip('stx-in', stx, 'stx-chips'); } });
+    $('f').addEventListener('input', e => { if (!['dx', 'tx', 'sdx-in', 'stx-in'].includes(e.target.id)) run(); });
+    $('f').addEventListener('change', e => { if (!['dx', 'tx', 'sdx-in', 'stx-in', 'mem'].includes(e.target.id)) run(); });
+    run();
+  }
+  init();
+})();
+</script>
+</body>
+</html>
