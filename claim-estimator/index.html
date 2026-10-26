@@ -130,6 +130,34 @@ aside{position:sticky;top:16px}
   .mini span{font-size:13px;color:var(--ink-2)}
   .wrap{padding-bottom:96px}
 }
+
+/* klaim historis */
+.hist{margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px}
+.hist h2{font-size:20px;font-weight:800;letter-spacing:-.01em;margin:0}
+.hist .sub{color:var(--ink-2);margin:4px 0 14px;max-width:70ch}
+.hfilters{display:flex;flex-wrap:wrap;gap:6px 18px;margin-bottom:14px}
+.hfilters .check{min-height:32px;font-size:14px}
+.hstats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:6px}
+@media (max-width:700px){.hstats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.hstat{border-left:3px solid var(--line);padding:2px 0 2px 10px}
+.hstat b{display:block;font-size:20px;font-weight:800}
+.hstat span{font-size:12.5px;color:var(--ink-3)}
+.strip{position:relative;height:74px;margin:22px 0 4px;border-bottom:1px solid var(--line)}
+.strip .band{top:0;height:100%;opacity:.55}
+.dot{position:absolute;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;border-radius:50%;background:var(--ink-2);opacity:.5}
+.estline{position:absolute;top:-8px;bottom:-4px;width:3px;margin-left:-1.5px;background:var(--accent);border-radius:2px}
+.estline span{position:absolute;top:-17px;left:50%;transform:translateX(-50%);font-size:11.5px;font-weight:700;color:var(--ink);white-space:nowrap}
+.hbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:18px 0 8px;flex-wrap:wrap}
+.hbar select{width:auto;min-height:36px;padding:6px 10px}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:760px}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;white-space:nowrap}
+td:nth-child(2){white-space:normal;min-width:180px}
+th{font-weight:600;color:var(--ink-2);background:var(--field);position:sticky;top:0}
+td.num,th.num{text-align:right;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.pos{color:var(--murah)} .neg{color:var(--mahal)}
+.hempty{padding:18px 4px;color:var(--ink-2)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -259,6 +287,18 @@ aside{position:sticky;top:16px}
       </div>
     </aside>
   </div>
+
+  <section class="hist" id="hist" aria-live="polite">
+    <h2>Klaim historis yang mirip</h2>
+    <p class="sub" id="hist-sub">Pilih diagnosis utama untuk melihat klaim historis dengan diagnosis dan tindakan yang sama.</p>
+    <div class="hfilters">
+      <label class="check"><input type="checkbox" id="hf-room"> Kelas kamar sama</label>
+      <label class="check"><input type="checkbox" id="hf-hosp"> Rumah sakit sama</label>
+      <label class="check"><input type="checkbox" id="hf-los"> Lama rawat ±2 hari</label>
+      <label class="check"><input type="checkbox" id="hf-icu"> Status ICU sama</label>
+    </div>
+    <div id="hist-body"><div class="hempty">Memuat data klaim historis…</div></div>
+  </section>
 </div>
 
 <button class="mini" id="mini" type="button" hidden><span>Estimasi</span><b id="mini-amt"></b><span id="mini-lvl"></span></button>
@@ -425,11 +465,120 @@ aside{position:sticky;top:16px}
     if (!ctx.dx) {
       $('slip').innerHTML = '<div class="state">Pilih diagnosis utama untuk melihat estimasi.</div>';
       document.documentElement.style.setProperty('--accent', 'var(--ink)');
-      mini(null);
+      mini(null); history(null, null);
       return;
     }
     const res = ClaimModel.predict(M, ctx.raw, ctx.t);
-    render(res, ctx); mini(res);
+    render(res, ctx); mini(res); histLimit = 50; history(ctx, res);
+  }
+
+
+  // ---------------- klaim historis ----------------
+  let C = null, byDx = null, histLimit = 50, lastCtx = null, lastRes = null;
+  const ROOM_LABEL = { 'KELAS III': 'Kelas III', 'KELAS II': 'Kelas II', 'KELAS I': 'Kelas I', 'Kelas Khusus': 'Kelas khusus',
+                       'ISOLASI': 'Isolasi', 'ODS/ODC': 'ODS/ODC', 'Unknown': 'Tidak diketahui', 'VIP': 'VIP' };
+  const BULAN = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+  const qtile = (a, q) => { if (!a.length) return NaN; const s = [...a].sort((x, y) => x - y), i = (s.length - 1) * q,
+    lo = Math.floor(i), hi = Math.ceil(i); return s[lo] + (s[hi] - s[lo]) * (i - lo); };
+
+  async function loadClaims() {
+    try {
+      const r = await fetch('claims.json', { cache: 'no-cache' });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      C = await r.json();
+      C.idx = {}; for (const k of ['dx', 'tx', 'h', 'r']) C.idx[k] = new Map(C.dict[k].map((v, i) => [v, i]));
+      byDx = new Map();
+      C.cols.dx.forEach((d, i) => { if (!byDx.has(d)) byDx.set(d, []); byDx.get(d).push(i); });
+    } catch (e) {
+      $('hist-body').innerHTML = '<div class="hempty">Data klaim historis (claims.json) tidak bisa dimuat.</div>';
+      return;
+    }
+    if (lastCtx) history(lastCtx, lastRes);
+  }
+
+  function history(ctx, res) {
+    lastCtx = ctx; lastRes = res;
+    if (!C) return;
+    if (!ctx || !res) {
+      $('hist-sub').textContent = 'Pilih diagnosis utama untuk melihat klaim historis dengan diagnosis dan tindakan yang sama.';
+      $('hist-body').innerHTML = ''; return;
+    }
+    const K = C.cols, dxI = C.idx.dx.get(ctx.dx), txI = C.idx.tx.get(ctx.tx);
+    const base = dxI === undefined ? [] : (byDx.get(dxI) || []);
+    let rows = base.filter(i => K.tx[i] === txI), scope = 'diagnosis dan tindakan yang sama';
+    if (!rows.length && base.length) { rows = base.slice(); scope = 'diagnosis yang sama (tindakan apa pun, karena kombinasi diagnosis dan tindakan ini belum pernah ada)'; }
+    const f = { room: $('hf-room').checked, hosp: $('hf-hosp').checked, los: $('hf-los').checked, icu: $('hf-icu').checked };
+    const rI = C.idx.r.get(ctx.raw.MappedRoomClass2), hI = C.idx.h.get(ctx.hosp), los = ctx.raw.LOS, icu = ctx.raw.isICU;
+    if (f.room) rows = rows.filter(i => K.r[i] === rI);
+    if (f.hosp) rows = rows.filter(i => K.h[i] === hI);
+    if (f.los) rows = rows.filter(i => Math.abs(K.los[i] - los) <= 2);
+    if (f.icu) rows = rows.filter(i => K.icu[i] === icu);
+    const active = [f.room && 'kelas kamar', f.hosp && 'rumah sakit', f.los && 'lama rawat ±2 hari', f.icu && 'status ICU'].filter(Boolean);
+    $('hist-sub').textContent = `Klaim dengan ${scope}${active.length ? ', plus filter ' + active.join(', ') : ''}. ` +
+      'Amount setara = amount aktual yang disesuaikan inflasi ke tanggal rawat yang kamu isi.';
+    if (!rows.length) {
+      $('hist-body').innerHTML = `<div class="hempty">${base.length ? 'Tidak ada klaim yang cocok dengan semua filter. Coba matikan salah satu filter.' :
+        'Diagnosis ini tidak ada di data historis.'}</div>`; return;
+    }
+    const lr = Math.log1p(M.meta.inflation_rate);
+    const adj = i => K.amt[i] * Math.exp((ctx.t - (K.ym[i] + 0.5) / 12) * lr);
+    const A = rows.map(adj);
+    const med = qtile(A, .5), p25 = qtile(A, .25), p75 = qtile(A, .75);
+    const below = A.filter(a => a <= res.estimate).length / A.length * 100;
+    const over200 = A.filter(a => a > 200e6).length;
+
+    // strip plot
+    const p50 = pos(50e6), p200 = pos(200e6);
+    let dots = '';
+    const step = Math.max(1, Math.ceil(rows.length / 500));
+    rows.forEach((i, k) => { if (k % step) return;
+      const y = 12 + ((i * 2654435761) % 1000) / 1000 * 50;          // jitter deterministik
+      dots += `<i class="dot" style="left:${pos(A[k])}%;top:${y}px"></i>`; });
+
+    const sortBy = $('hsort') ? $('hsort').value : 'new';
+    const order = rows.map((i, k) => k);
+    const cmp = { new: (a, b) => K.ym[rows[b]] - K.ym[rows[a]], hi: (a, b) => A[b] - A[a], lo: (a, b) => A[a] - A[b],
+                  los: (a, b) => Math.abs(K.los[rows[a]] - los) - Math.abs(K.los[rows[b]] - los) }[sortBy];
+    order.sort(cmp);
+    const shown = order.slice(0, histLimit);
+    const trs = shown.map(k => { const i = rows[k], ym = K.ym[i], d = (res.estimate - A[k]) / A[k] * 100;
+      return `<tr><td>${BULAN[ym % 12]} ${Math.floor(ym / 12)}</td><td>${C.dict.h[K.h[i]]}</td><td>${ROOM_LABEL[C.dict.r[K.r[i]]] || C.dict.r[K.r[i]]}</td>
+        <td class="num">${K.los[i]}</td><td>${K.icu[i] ? 'Ya' : '–'}</td><td class="num">${K.nsd[i]}</td>
+        <td class="num">${fmt(K.amt[i])}</td><td class="num">${fmt(A[k])}</td>
+        <td class="num ${d >= 0 ? 'pos' : 'neg'}">${d >= 0 ? '+' : ''}${d.toFixed(0)}%</td></tr>`; }).join('');
+
+    $('hist-body').innerHTML = `
+      <div class="hstats">
+        <div class="hstat"><b>${rows.length.toLocaleString('id-ID')}</b><span>klaim cocok</span></div>
+        <div class="hstat"><b>Rp ${jt(med)}</b><span>median amount setara</span></div>
+        <div class="hstat"><b>Rp ${jt(p25)} – ${jt(p75)}</b><span>separuh klaim di rentang ini</span></div>
+        <div class="hstat"><b>${below.toFixed(0)}%</b><span>klaim di bawah estimasi model${over200 ? `, ${over200} klaim di atas 200 jt` : ''}</span></div>
+      </div>
+      <div class="strip" aria-label="Sebaran amount klaim historis">
+        <div class="band b1" style="left:0;width:${p50}%"></div>
+        <div class="band b2" style="left:${p50}%;width:${p200 - p50}%"></div>
+        <div class="band b3" style="left:${p200}%;right:0"></div>
+        ${dots}
+        <div class="estline" style="left:${pos(res.estimate)}%"><span>Estimasi Rp ${jt(res.estimate)}</span></div>
+      </div>
+      <div class="axis"><span>1 jt</span><span>10 jt</span><span>100 jt</span><span>1 M</span></div>
+      <div class="hbar">
+        <span>Menampilkan ${shown.length.toLocaleString('id-ID')} dari ${rows.length.toLocaleString('id-ID')} klaim</span>
+        <label class="check" style="min-height:0">Urutkan
+          <select id="hsort">
+            <option value="new"${sortBy === 'new' ? ' selected' : ''}>Terbaru</option>
+            <option value="hi"${sortBy === 'hi' ? ' selected' : ''}>Amount tertinggi</option>
+            <option value="lo"${sortBy === 'lo' ? ' selected' : ''}>Amount terendah</option>
+            <option value="los"${sortBy === 'los' ? ' selected' : ''}>Lama rawat paling dekat</option>
+          </select></label>
+      </div>
+      <div class="tbl"><table>
+        <thead><tr><th>Bulan rawat</th><th>Rumah sakit</th><th>Kelas</th><th class="num">LOS</th><th>ICU</th>
+          <th class="num">Dx sekunder</th><th class="num">Amount aktual</th><th class="num">Amount setara</th><th class="num">Estimasi vs setara</th></tr></thead>
+        <tbody>${trs}</tbody></table></div>
+      ${rows.length > histLimit ? '<p style="margin:12px 0 0"><button class="btn" type="button" id="hmore">Tampilkan 50 lagi</button></p>' : ''}`;
+    $('hsort').onchange = () => history(lastCtx, lastRes);
+    if ($('hmore')) $('hmore').onclick = () => { histLimit += 50; history(lastCtx, lastRes); };
   }
 
   function onDx() {
@@ -491,7 +640,9 @@ aside{position:sticky;top:16px}
     $('stx-in').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); addChip('stx-in', stx, 'stx-chips'); } });
     $('f').addEventListener('input', e => { if (!['dx', 'tx', 'sdx-in', 'stx-in'].includes(e.target.id)) run(); });
     $('f').addEventListener('change', e => { if (!['dx', 'tx', 'sdx-in', 'stx-in', 'mem'].includes(e.target.id)) run(); });
+    ['hf-room', 'hf-hosp', 'hf-los', 'hf-icu'].forEach(id => $(id).addEventListener('change', () => { histLimit = 50; history(lastCtx, lastRes); }));
     run();
+    loadClaims();
   }
   init();
 })();

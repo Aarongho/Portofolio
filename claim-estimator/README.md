@@ -5,6 +5,7 @@ Website statis untuk mengestimasi amount klaim rawat inap cashless dari diagnosi
 ## Isi folder
 - `index.html` — tampilan dan form input
 - `model.js` — preprocessing + inference XGBoost di browser
+- `claims.json` — klaim historis per baris untuk section "Klaim historis yang mirip" (tanpa ClaimNo, nomor peserta, nama, umur, jenis kelamin), dibuat dengan `build_claims.py` dari output Step 2
 - `export_web_model.py` — script untuk membuat `model.json` dari notebook Step 6
 - `model.json` — model regression all-client (153.874 klaim rawat inap, data sampai 09/2026, inflasi medis 7,2%/tahun)
 
