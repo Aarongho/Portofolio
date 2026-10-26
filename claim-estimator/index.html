@@ -250,20 +250,6 @@ aside{position:sticky;top:16px}
             <select id="mem"></select>
           </div>
         </div>
-        <div class="row">
-          <div>
-            <label>Status pernikahan</label>
-            <div class="seg" role="radiogroup" aria-label="Status pernikahan">
-              <label><input type="radio" name="mar" value="1" checked><span>Menikah</span></label>
-              <label><input type="radio" name="mar" value="0"><span>Lajang</span></label>
-            </div>
-          </div>
-          <div>
-            <label for="client">Client</label>
-            <input type="text" id="client" list="dl-client" placeholder="Ketik nama perusahaan">
-            <span class="hint" id="client-hint"></span>
-          </div>
-        </div>
       </fieldset>
     </form>
 
@@ -277,7 +263,7 @@ aside{position:sticky;top:16px}
 
 <button class="mini" id="mini" type="button" hidden><span>Estimasi</span><b id="mini-amt"></b><span id="mini-lvl"></span></button>
 <datalist id="dl-dx"></datalist><datalist id="dl-tx"></datalist><datalist id="dl-sdx"></datalist>
-<datalist id="dl-stx"></datalist><datalist id="dl-client"></datalist><datalist id="dl-hosp"></datalist><datalist id="dl-spec"></datalist>
+<datalist id="dl-stx"></datalist><datalist id="dl-hosp"></datalist><datalist id="dl-spec"></datalist>
 
 <script src="model.js"></script>
 <script>
@@ -351,7 +337,7 @@ aside{position:sticky;top:16px}
         Gender: Number(radio('sex')), AdaSecondaryDiagnosis: sdx.length ? 1 : 0,
         PrimaryTreatmentCategory: Number(radio('op')),
         MembershipType2: (mem.indexOf('CHI') >= 0 && age < 18) ? 0 : 1,
-        'ODS/ODC': $('ods').checked ? 1 : 0, MaritalStatus: Number(radio('mar')),
+        'ODS/ODC': $('ods').checked ? 1 : 0, MaritalStatus: mem.indexOf('CHI') >= 0 ? 0 : 1,
         isICU: $('icu').checked ? 1 : 0, AdaSecondaryTx: stx.length ? 1 : 0, isPrePost3: 0,
         Membership: mem, MappedRoomClass2: $('room').value,
         ProviderClassification2: h.ProviderClassification2 || 'Unknown',
@@ -359,7 +345,7 @@ aside{position:sticky;top:16px}
         PrimaryDiagnosis2: dx, PrimaryMedicalTreatment: tx,
         SecondaryDx1: sdx[0] || 'Tidak Ada', SecondaryTx1: stx[0] || 'Tidak Ada',
         TreatmentPlaceChangeClean2: hosp || 'Unknown', HospitalGroup: h.HospitalGroup || 'Non Group',
-        DoctorSpecialty: $('spec').value.trim() || 'Unknown', ClientName: $('client').value.trim() || 'Unknown',
+        DoctorSpecialty: $('spec').value.trim() || 'Unknown', ClientName: 'Unknown',
       }, t: dateToT(d), dx, tx, hosp, h
     };
   }
@@ -428,7 +414,6 @@ aside{position:sticky;top:16px}
     known(sets.dx, ctx.dx, 'dx-hint', 'Wajib diisi.', 'Tidak ada di data historis. Estimasi memakai rata-rata semua diagnosis.');
     known(sets.tx, $('tx').value.trim(), 'tx-hint', 'Kosong berarti konservatif.', 'Tidak ada di data historis. Estimasi memakai rata-rata semua tindakan.');
     known(sets.hosp, ctx.hosp, 'hosp-hint', 'Kosong berarti rumah sakit tidak diketahui.', 'Tidak ada di data historis. Estimasi memakai rata-rata semua rumah sakit.');
-    if (sets.client) known(sets.client, $('client').value.trim(), 'client-hint', '', 'Tidak ada di data historis. Estimasi memakai rata-rata semua client.');
     if (ctx.hosp && M.hosp_attr[ctx.hosp]) {
       const h = M.hosp_attr[ctx.hosp];
       $('hosp-hint').textContent = [h.HospitalGroup !== 'Non Group' ? 'Group ' + h.HospitalGroup : 'Bukan bagian group',
@@ -465,7 +450,7 @@ aside{position:sticky;top:16px}
     run();
   }
   function onMem() {
-    if ($('mem').value.indexOf('CHI') >= 0) { setRadio('mar', 0); if (Number($('age').value) > 25) $('age').value = 10; }
+    if ($('mem').value.indexOf('CHI') >= 0) { if (Number($('age').value) > 25) $('age').value = 10; }
     run();
   }
 
@@ -490,14 +475,11 @@ aside{position:sticky;top:16px}
     fillSelect('room', rooms, { 'KELAS III': 'Kelas III', 'KELAS II': 'Kelas II', 'KELAS I': 'Kelas I', 'Kelas Khusus': 'Kelas khusus (ICU/HCU)',
                                 'ISOLASI': 'Isolasi', 'ODS/ODC': 'ODS/ODC', 'Unknown': 'Tidak diketahui' }, 'KELAS II');
     fillSelect('mem', U.Membership, { '1. EMP': 'Karyawan', '2. SPO': 'Pasangan', '3. CHI': 'Anak' }, '1. EMP');
-    fill('dl-client', U.ClientName); $('client').value = U.ClientName[0][0];
-    sets.client = new Set(U.ClientName.map(o => o[0]));
-    if (U.ClientName.length < 2) $('client').closest('div').style.display = 'none';
 
     const tb = M.meta.t_base, by = Math.floor(tb), bm = Math.round((tb - by) * 12 + 0.5);
     const today = new Date(); $('date').value = today.toISOString().slice(0, 10);
     $('modelMeta').firstChild.textContent =
-      `Model dari ${M.meta.n_train.toLocaleString('id-ID')} klaim rawat inap, data sampai ${String(bm).padStart(2, '0')}/${by}.`;
+      `Model dari ${M.meta.n_train.toLocaleString('id-ID')} klaim rawat inap semua client, data sampai ${String(bm).padStart(2, '0')}/${by}.`;
 
     $('dx').addEventListener('change', onDx); $('dx').addEventListener('input', () => { if (sets.dx.has($('dx').value)) onDx(); else run(); });
     $('tx').addEventListener('change', onTx); $('tx').addEventListener('input', () => { if (sets.tx.has($('tx').value)) onTx(); else run(); });
