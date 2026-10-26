@@ -361,6 +361,12 @@ tr:last-child td{border-bottom:0}
     $(inp).value = ''; chipList(arr, box); run();
   }
 
+  // flag tindakan berbiaya tinggi (pola regex dari model.json, sama dengan notebook)
+  function flags(text) {
+    const out = {}, pats = (M.meta && M.meta.flag_patterns) || {};
+    for (const k in pats) out[k] = new RegExp(pats[k], 'i').test(text) ? 1 : 0;
+    return out;
+  }
   function dateToT(d) { return d.getFullYear() + (d.getMonth() + 0.5) / 12; }
 
   function readRaw() {
@@ -386,6 +392,7 @@ tr:last-child td{border-bottom:0}
         SecondaryDx1: sdx[0] || 'Tidak Ada', SecondaryTx1: stx[0] || 'Tidak Ada',
         TreatmentPlaceChangeClean2: hosp || 'Unknown', HospitalGroup: h.HospitalGroup || 'Non Group',
         DoctorSpecialty: $('spec').value.trim() || 'Unknown', ClientName: 'Unknown',
+        ...flags(tx + ' | ' + stx.join(', ')),
       }, t: dateToT(d), dx, tx, hosp, h
     };
   }
